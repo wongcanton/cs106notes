@@ -1,0 +1,63 @@
+Lecture 11
+
+Gimage
+	• Lets you put images on the collage
+	• `new Gimage(image_file, x, y)`
+		○ The file must be in the project folder, in a 'images' subdirectory
+		○ .gif, .jpg, and .jpeg supported
+
+	• Can do image.scale(x, y) to scale it differently
+
+GPolygon
+	• Can draw polygons
+	• Has a reference point, and the corners are passed in reference to the position to the reference point
+		○ The reference point is easiest if the center
+	• How to make one:
+		○ Make empty polygon
+		○ Add verticies in reference to the reference point
+		○ Set vertex with addVertex(x, y)
+			§ All other verticies can be added with addVertex(x, y) 
+			§ or addEdge(dx, dy)
+				□ Adds vertex relative to the preceding one
+		○ Closes the polygon by linking the first and last verticies
+	• The reference point is never said explicitly when drawing it
+		○ You pass the reference point when you add it to the canvas
+		○ `add(diamond, 75, 100);`
+Note that polar coordinates not used in this class.
+
+GCompound
+	• Allows multiple GObjects to be added together and use as one GObject 
+	• Also has a reference point: add all objects relative to the reference point
+	• When added to the canvas, pass the reference point
+
+Remember that when adding ovals: the coordinate is the top left corner of the rectangle that the circle is drawn in
+--------
+|   O  |
+|        |
+--------
+	• So the circle is at 0,0 where 0, 0 is the top left corner
+
+One strategy for making a compound object is to make a class that extends GCompound, make all objects relative to the reference point for the main object, then make instances of that class in the program.
+
+Event-Driven Programs
+	• When users interact with the program, like clicking a mouse or typing, its an event
+	• We respond to events by having 'listeners' for events
+		○ if no listener, we never know the event happens
+	• Typically we have two listeners:
+		○ addMouseListeners()
+		○ addKeyListeners()
+	• The library for these are java.awt.event.*
+	• Some methods of listeners can be called asynchronously
+		○ When you don't know exactly when it will happen
+	• For GraphicsProgram, we use a listener instead of calling run()
+	init() -> Make the listener in this method, in place of run()
+	mouseClicked(MouseEvent e) -> Defines the behavoir when a click is heard by the listener
+	
+General responding to mouse events:
+	1. init or run method that makes addMouseListeners
+	2. Write definitions of any listener methods needed
+
+getElementAt(GPoint) finds the top most object at a location (GPoint location)
+
+I just realized there are no solutions to the assignments.
+There are solutions to the exams and the section assignments. I should do the section assignments.

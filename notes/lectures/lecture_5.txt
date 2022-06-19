@@ -1,0 +1,88 @@
+Lecture 5
+
+Variables are things that store data.
+
+Variables have:
+	• Name
+	• Type
+	• Value
+
+Valid names in java:
+	• start with letter or _
+	• All other characters can be letters, numbers, _
+	• Not one of the reserved names
+
+In good practice, make the names descriptive for that they hold.
+
+Primitive types: built in types in Java
+	• int = integer
+	• double = real value (can have decimals)
+	• boolean = logical value (true or false)
+	• char = character
+
+It's important to have int and double separate types
+	• You couldn't interate over a double… so we need int
+
+Declaration:
+`int x;`
+	• State type
+	• State name
+	• Optional: '=' and a value
+	• End statement with ;
+
+For best practice, it's good to give variables an initial value
+`int x = 3;`
+
+For practice at this point in the class, only make declarations in methods.
+Don't make global variables yet.
+
+How to assign values to a variable:
+`variable = expression`
+You can assign to a variable multiple times.
+
+Classes are a type as well, so objects are variables of type class.
+
+`className varName = new className();`
+
+In Java, we call the object variable a 'reciever'. And method calls are called 'message'. So you send a 'message' to a 'reciever'.
+You can also just say it's a method call to an object. The reciever/message is just Java slang.
+
+GLabel details:
+	• Coordinate start position 0, 0 is the top left of a screen.
+	• Units is in pixels
+	• X is horizontal on the screen
+	• Y is vertical, with positive being downward
+	• Coordinate definitions for Glabel only apply to the first character
+
+The following operations apply to all Gobjects:
+	• object.setColor(color)
+		○ Sets color of object
+	• object.setLocation(x, y)
+		○ Changes location of object
+	• object.move(dx, dy)
+		○ Moves the object by adding dx and dy to the current coordinates
+
+Colors:
+`Color.BLACK` and so on. Just import java.awt.*
+
+Glabel methods on top of Gobject:
+	• new Glabel(text, x, y)
+		○ This invokes the constructor for a new object
+	• name.setFont(fontName)
+		○ Sets font for the string of the label
+		○ "family-style-size"
+			§ "Times-BOLD-11" for example
+
+Expressions
+Example: `int total = n1 + n2`
+Terms with operators together are 'expresions'.
+
+Operators in Java:
+	• +
+	• -
+	• *
+	• /
+	• % (remainder)
+		○ THIS IS NOT MODULUS
+Ex: 7 % 2 => 1
+Ex: 7 % 20 => 20

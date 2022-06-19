@@ -1,0 +1,69 @@
+Lecture 8
+
+Information hiding
+	• Methods allow you to do all of the extra variable declarations and error checking in a way that is kept from the user
+	• Users can then call the method without needing to really understand all the internals
+	• Methods should solve one problem and solve it well
+
+Stack frame
+	• Variables in methods are called the stack frame
+	• If you pass some variable to the method, that variable is included in the stack frame, and it is only modified in the method
+		○ It does not include those changes when being taken back in the main program
+	• When you return variables from a method outside of the program, you 'pop it out of the stack'
+	• When you pass variables, you're passing a copy of the value of the variable, technically
+
+So for parameters, values are passed, not the actual variables.
+
+Classes
+	• Classes have clients and implementors
+		○ Users are clients, and they use classes
+		○ Implementors are those who make classes
+
+RandomNumberGenerator class
+	• This is a pseudorandom number generator
+		○ Computers cannot really make truly random numbers
+		○ But they seem random to humans
+	• In our programs: 
+	```
+	import acm.util.*
+	public class myClass extends ConsoleProgram {
+		private RandomGenerator mygen = RandomGenerator.getInstance();
+	}
+	```
+	• What they actually do is take the current time and put it through some function to make it some number that appears random
+		○ If you run it twice at the same time, you might be able to get the same output
+		○ OR you could give the generator the SAME SEED
+			§ The seed is used for the computation and if the same seed is used, the output should be the same
+	
+Instance variable
+	• These are variables that are available to all methods in a class
+	• These are declared in a class, not methods
+	• The constants we declared before are instance variables
+	• Related to state of the object since it's available everywhere
+		○ This is opposed to local variables in methods, which are only used the method computation
+	• These are not 'global variables'. Apparently global variables are bad practice so they arent covered in this class.
+
+Back to RandonGenerator class
+	• Methods 
+		○ nextint(int low, int high)
+			§ Returns between low and high
+		○ nextint(int n)
+			§ Returns between 0 and n - 1
+		○ nextDouble(double low, double high)
+			§ Returns between low and high
+		○ nextDouble()
+			§ Returns between 0 and 1
+		○ nextBoolean()
+			§ Returns true or false
+		○ nextBoolean(double p)
+			§ Returns true or false with probability p
+		○ nextColor()
+			§ Returns random color
+	• Seed
+		○ object.setSeed(int n)
+			§ This sets the seed, so the output will be the same
+		○ Using the seed helps run a program consistenly for debugging
+
+Convention:
+	• Instance variables that are constants are put at the top of the program
+	• Instance variables that are not constants are put at the bottom of the program

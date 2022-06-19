@@ -1,0 +1,138 @@
+Karel Chapter 2
+
+The simplest Karel program consists of a definition of a new Karel class and has a set of commands.
+
+Comments in Karel/Java are between /* and */.
+
+Comments on small programs may seen silly, but commends are very important in documenting large projects.
+
+Karel programs must also include this:
+`import stanford.karel.*;`
+This imports all Karel definitions from the stanford.karel library.
+	• The library contains basic definitions for Karel programs
+
+The class definition:
+	• First line is a 'header', and the information between the {} is the 'body'
+		○ The definition and the body can be seen as two separate things
+In this example:
+```
+public class BeeperPickingKarel extends Karel {
+	public void run() {
+		move();
+		pickBeeper();
+		move();
+	}
+}
+```
+The 'extends' makes a new class that is an extension of the base Karel class.
+	• This is used in both Karel and Java
+	• This means that all instances of the new class also have all properties and methods of the parent class
+		○ So an in stance of BeeperPickingKarel is also an instance of Karel
+	
+This extension of classs is called 'inheritance', since the new class aquires the state and behaviors of the parent.
+	• In OOP, a 'parent' class is called the 'superclass', and the child is called the 'subclass'
+	• It's important to note that super/sub do not mean more/less, in fact subclasses usually have more functionality than superclasses because they contain the inherited and newly declared properties/methods
+
+In the example above, this is a method:
+```
+public void run() {
+	move();
+	pickBeeper();
+	move();
+}
+```
+
+Each part:
+	• header = `public void run()`
+	• public makes the method available as an interface with the object
+		○ It can be called in the program
+	• void (not covered yet but I think I know this) means the method does not return a value
+	• run()
+		○ This is the method name, and for Karel, run() is the method reserved for running Karel in its world (as per the Stanford Karel environment)
+
+Program design:
+	• For a given world to be solved, it is possible to just write a long series of commands in the run method to complete the world
+	• But this isn't the most readable, I mean look at this:
+	```
+	public void run() {
+		move();
+		pickBeeper();
+		move();
+		turnLeft();
+		move();
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		move();
+		move();
+		putBeeper();
+		move();
+	}
+	```
+	• While this can be understood, it isn't very clear what the goal is
+	• To make the program more readable, we can reduce some of the commands to abstracted single steps, and have them be new methods
+	• Take the example of turning right:
+	```
+	turnLeft();
+	turnLeft();
+	turnLeft();
+	```
+	• This turns right, but it isn't very clear that this is the case
+		○ For a Karel programmer this may be understandable, but outside of that group this means nothing significant
+	• So what we can do is define a new method:
+	```
+	private void turnRight() {
+		turnLeft();
+		turnLeft();
+		turnLeft();
+	}
+	```
+
+A few things with this new method:
+	• This uses 'private' instead of 'public' in the method definition
+		○ This means that calling turnRight() can only be done within the new class, it cannot be invoked from outside of the class
+	• It is generally good programming practice to keep method definitions private as much as possible, unless absolutely needed outside of the class
+	• This is the idea of 'encapsulation': gathering many pieces of information and abstracting them into one idea, and restricting access to that idea if possible
+
+Why is incapsulation used?
+	• This reduces the information available to an entire program
+	• For large programs, it can quickly become very complex to have every piece of information and state actively available to be changed and used
+	• Encapsulating properties and methods in objects allows for 'information hiding', which leaves only a few simple and necessary interfaces with an object readily available
+		○ This is a cornerstone of OOP
+	• Now consider if we were to put these methods somewhere else:
+		○ In the Karel object? Can't do that because we don't have access to modifying the Karel library
+		○ In the standard Java classes? Can't do that either
+		○ So yes we are only adding the method to our specific Karel class, but we don't really have another option
+	• We can share it between programs however:
+		○ Just import the Karel subclass from out specific program into another one
+
+The standord library includes a class SuperKarel that has turnRight and turnAround already made, for simplicity.
+
+Decomposition:
+	• The book goes over an example of having Karel put a beeper in a hole in a world
+	•  The example includes the following steps:
+		○ Move to pothole
+		○ Turn around
+		○ Place beeper
+		○ Around again
+		○ Walk over the beeper
+	• This could be written with a series of Karel commands without writing a new method, but putting the correct commands in the right order may be difficult
+	• So, break the problem down into a series of smaller problems:
+		○ Move to hole
+		○ Fill hole by dropping beeper
+		○ Move to next corner
+	• The process of breaking this problem down is 'decomposing' the problem and it makes writing the program much easier: we can focus on one task at a time instead of trying to solve the whole thing at once
+	• We could also decompose into a different set of tasks:
+		○ approachAndFillPothole, move
+		○ move, turnRight, fillPotholeYouAreStandingIn, turnAround, move, turnRight, move
+	• These others still solve the problem, but the first decomposition is more clear, achieveable, and allows the code to be more reusable
+
+So decomposing a problem is an important programming skill and the execution of it:
+	• Defines how to write the program'
+	• Dictates how usable the code can be later
+
+In general, here are some guidelines on great decompositions:
+	1. Each subproblem should perform a conceptually simple task
+		a. This makes solving that small task easier to think about and execute
+	2. Each subproblem should perform a task that is as general as possible so it can be used in several different situations
+		a. This makes core more reusable

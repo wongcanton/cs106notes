@@ -1,0 +1,19 @@
+20201222 Assignment 1
+
+Notes:
+
+My hope is that the assignments are the same from 2007 to 2017.
+
+They are not.
+Solve the assignments from 2017 for now.
+
+The first assigment is CollectNewspaperKarel.
+The goal is to:
+	• Move to the newspaper (beeper)
+	• Pick up beeper
+	• Move back to the initial position
+
+The assignment recommends to make methods for the first and third actions.
+
+Can make new worlds according to handout #3?
+	• Make solutions for the preprovided worlds first, then make additional worlds for testing.

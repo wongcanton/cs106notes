@@ -1,0 +1,75 @@
+Lecture 4
+
+Karel is not gone until the Assignment is done.
+Now we use Java.
+
+Computing became automatic in the 1800s with Charles Babbage's Analytical Engine.
+Actually his wife Ada made the engine and started programming with it.
+
+Ada Byron was the first programmer, and worked on the Analytical Engine.
+	• It wasn't made yet, but she started programming it for use when it came to fruition.
+
+People tend to do this: we start programming computers before they are made so we can prepare for them when the hardware comes available.
+
+1930s/40s had the first electrical computer prototypes.
+The first major working one was the ENIAC.
+
+1971: first microprocessor.
+
+What is computer science?
+	• It's not just programming
+CS = the science/study of problem solving with computational methods/devices
+
+So programming is like the lab work of computer science.
+
+Computers only understand binary (0 and 1).
+Machine language is understood by the processor, which translates to binary.
+Higher level languages compile down to machine language.
+
+Compilers compile languages. Eclipse itself is a compiler.
+
+Programmers write source code.
+Computers use object code, which is compiled source code.
+Object files are put together with other object files (from libraries) and come together to executable files.
+
+In Java, this process is a little different.
+Source file -> Compiles to class file  (bytecode) -> Link other class files -> JAR (Java archive file) -> Run JAR in JVM
+
+The reason for the JVM is to be platform independent. Compilers must be made for each computer architecture normally.
+For Java, the bytecode/JAR is the same for all, so you can give it to everyone that has the JVM running.
+
+Java is an object oriented language.
+
+A class is an encapsulation of behaviors and data.
+
+Classes can inherit from others, where parents are 'superclasses' and children are the 'subclass'.
+
+Instances of classes are objects of classes that can be modified and the modifications do not change the class. Classes can be seen as the template then.
+
+For our Java programs, we're starting with the ACM packages to give us functionality early on.
+
+acm.program library has:
+	• ConsoleProgram
+	• DialogProgram
+	• GraphicsProgram
+All programs here are of class Program, which is of class Japplet, which is of class Applet.
+
+In Java, a Console is a window that contains text and interacts with the user.
+
+When you run a program in Java, you run an instance of the main class written in the source file.
+
+GraphicsProgram class:
+We'll use the following object classes
+	• Collage -> a blank canvas
+	• Glabel -> text
+	• Grect -> reactangle
+	• GOval -> an oval
+	• Gline -> a line
+
+To make an instance of a class:
+`new className`
+
+To put a GraphicsProgram object on a collage, use `add()`.
+
+Methods are associated with objects, so to run it:
+`objectName.method(args);`

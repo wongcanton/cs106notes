@@ -1,0 +1,9 @@
+# Directories to ignore
+exercises/
+ProgrammingMethodology/
+testing/
+
+# Files to ignore
+artsciencejava.pdf
+karel-the-robot-learns-java.pdf
+ProgrammingMethodologyAllMaterials.zip

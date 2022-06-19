@@ -1,0 +1,18 @@
+Eclipse
+
+I still can't get Eclipse to work with Karel.
+
+I downloaded the newest Eclipse, used the URL for the plugin:
+https://web.stanford.edu/dept/cs_edu/eclipse/plugin
+
+From <https://web.stanford.edu/class/archive/cs/cs106a/cs106a.1178/eclipse/> 
+
+Failed to run Karel.
+
+I tried installing different versions of Eclipse and Java but it still wouldn’t run. The actual versions of both Java and Eclipse from 2007 are imcompatible with windows 10 so I couldn't use both.
+
+Final solution: I downloaded the most recent version of the Karel assignment:
+https://web.stanford.edu/class/archive/cs/cs106a/cs106a.1178/resources/CS106A-Assignment1.zip
+From 2017.  This works now!
+
+I think the plugin url just works for only the most recent version of Karel, so you have to use the most recent publication for it.

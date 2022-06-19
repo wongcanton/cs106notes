@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"TestYahtzee"},{"p":"<Unnamed>","l":"Yahtzee"},{"p":"<Unnamed>","l":"YahtzeeConstants"},{"p":"<Unnamed>","l":"YahtzeePlayer"},{"p":"<Unnamed>","l":"YahtzeeScorer"}];updateSearchResults();

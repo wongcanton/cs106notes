@@ -1,0 +1,49 @@
+Karel Chapter 1
+
+The process of directing Karel with commands is called programming.
+The programs must follow syntactic rules of the Karel programming language.
+The Karel language was adapated to be as similar to Java as possible.
+
+The ides with Karel is to be simple enough to let the learner focus on solving problems instead of getting focused on learning the many functions and classes that are part of many languages.
+
+Karel's World:
+	• Streets run horizontal (west to east)
+	• Avenues run vertical (north to south)
+	• Corners are intersections of streets and avenues
+	• Karel can only be positioned at corners and face a compass direction (N, S, E, W)
+	• Beepers are items Karel can pick up
+	• Karel can only detect beepers if on the same corner as the beeper
+	• Walls are solid lines in a world that Karel cannot go through
+
+Karel commands:
+	• move()
+		○ Go forward one block
+	• turnLeft()
+		○ Turn left
+	• pickBeeper()
+		○ Pick up beeper
+	• putBeeper()
+		○ Put down a beeper
+
+The parentheses is the invocation of a method.
+
+If Karel tries to go through a wall or pick up a beeper that doesn't exist, an 'error condition' occurs. This displays an error message.
+
+Karel must be programmed to follow instuctions, individual commands cannot be executed.
+
+Karel and the object-oriented paradigm:
+	• When Karel was made in the 70s, the main approach to programming was procedural programming, which is the method of breaking a program into units called procedures that define the operations
+	• Java and some other more recent languages use an object-oriented paragism, which gets a programmer to focus more on objects than procedures
+	• A main advantage of OOP is the focus on state and behavior
+	• States of objects are a set of attributes that are of the object and can change over time
+	• Behavior is how the object responds to the world
+	• In OOP, anything that triggers a behavior from an object is called a 'message'
+		○ In Karel, we call these commands
+	• Objects vs class:
+		○ A class is a pattern or template for objects
+		○ Objects can be of a particular class, and they are 'instances' of the class
+		○ You can have many instances of a class
+
+Importance of practical experience:
+	• Reading is good, but practice is also very important for learning
+	• Programming gets a lot of learning through practice

@@ -1,0 +1,120 @@
+Java Chapter 2
+
+Programming by Example
+
+It is a battle of learning general programming alongside the details of a language.
+We'll try to follow the examples coming up on their fundamental purpose first, then the details later.
+
+2.1 The hello world program
+The purpose of the hello world program was outlined in the C K&R book:
+	• Make program
+	• Compile it
+	• Load it
+	• Run it
+	• Get output from it
+These are all important steps, and hello world teaches all of them.
+For this Java program, it prints to a screen not just a terminal.
+
+```
+/*
+* File: HelloProgram.java
+* -
+* This program displays "hello, world" on the screen.
+* It is inspired by the first program in Brian
+* Kernighan and Dennis Ritchie's classic book,
+* The C Programming Language.
+*/
+import acm.graphics.*;
+import acm.program.*;
+public class HelloProgram extends GraphicsProgram {
+	public void run() {
+		add(new GLabel("hello, world"), 100, 75);
+	}
+}
+```
+The main parts are:
+	• Program comment
+	• Imports
+	• Main class
+
+Comments
+	• These are for a human
+	• First program comment usually should tell what the program does as a whole
+
+Imports
+	• These import libraries
+	• They call packages from the Association for Computing Machinery
+	• The * imports all components from the package
+	• These two acm packages will be used throughout the book to make graphics
+	• We use packages to not have to write everything ourselves
+
+Main class
+	• Class is the primary unit of a java program and is a template for objects
+	• Header line has the class definitions
+	• GraphicsProgram is of the acm.program package
+	• The run line is making a Java method, which is a function
+		○ Methods contain statements
+	• The run method is special in the acm.program package, it is the only thing to run (as far as I understand)
+	• The Glabel class comes from acm.graphics, and it adds 'hello world' to the graphics program at position 100, 75
+
+2.2 Perspectives on the programming process
+	• Reductionism is the principle that a whole object can be understoof by understanding its parts
+		○ So breaking up a program to its parts to understand
+	• Holism is viewing the whole
+		○ Seeing the whole program
+	• You need to use both: holistic to understand what a whole program does, reductionist to write programs
+
+2.3 A program to add two numbers
+```
+/*
+File: Add2Integers.java
+-----------------------------
+This program adds two integers and prints their sum.
+*/
+import acm.program.*;
+
+public class Add2Integers extends ConsoleProgram {
+	public void run() {
+		println("This program adds two integers.");
+		int n1 = readInt("Enter n1: ");
+		int n2 = readInt("Enter n2: ");
+		int total = n1 + n2;
+		println("The total is " + total + "."); 
+	}
+}
+```
+	• The ConsoleProgram object supports user interaction
+	• println(); prints a 'line', where the argument is a string
+		○ Each println() makes a new line
+	• The variable declaration
+		○ int my_int = value;
+		○ This makes an integer
+	• readInt takes input and returns an integer for the input
+	• `n1 + n2` is an expression, where the `+` is the operator
+	• println() can concatenate strings
+	• For a floating point number in Java, use 'double':
+	`double myDouble = readDouble("Enter a double: ");`
+	
+2.4 Classes and objects
+	• A class is an extensible template that specifies the structure of a particilar style of object
+	• An object is an entity that encapsulates both state and behavior
+	• Subclasses inherit properties and methods from superclasses through inheritance
+For the Program class, here it the hierarchy in the acm.program package:
+
+GraphicsProgram, ConsoleProgram, DialogProgram -> Program -> Applet
+
+Since these are applets, they can be run in the browser.
+
+For the Program class, they behave differently for each class:
+	• println and readInt work for ConsoleProgram
+	• DialogProgram uses the same methods, but makes pop ups instead of an interactive console
+
+You can redefine that the methods do such that they behave differently than the superclass. This is called 'overriding' the method.
+
+The GObject class hierarchy
+	• The GObject class is part of the acm.graphics package, and it has the subclass GLabel 
+
+To make a new instance of a class, use the keyword `new`.
+The Gobject subclasses have many shapes and you can put them together at specified pixel positions to draw figures, like a robot, in a window.
+
+Exercises will be included in this directory.

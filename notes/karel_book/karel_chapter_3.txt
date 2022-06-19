@@ -1,0 +1,85 @@
+Karel Chapter 3
+
+Chapter 3: Control Statements in Karel
+
+Writing commands can solve problems, but this falls out the window when the state of the world changes. Writing a program that uses the state of the world to inform which commands to execute is a better approach.
+
+Statements that affect the order at which a program executes commands are called 'control statements'. These are of two general classes:
+	• Conditional statements:
+		○ When statements only execute of a condition is met
+		○ 'if' statements in Karel
+	• Iterative statements;
+		○ Statements that execute repeatedly in a loop
+			§ 'for' or 'while' loops in the case of Karel
+
+Conditional statements
+```
+if (conditional test) {
+	statement to execute if condition is true;
+}
+```
+
+Karel has a few pre-programmed conditions:
+	• frontisClear()
+	• leftIsClear()
+	• rightIsClear()
+	• beepersInBag()
+	• facingNorth()
+	• facingEast()
+	• facingSouth()
+	• facingWest()
+And likewise the opposites:
+	• frontIsBlocked()
+	• leftIsBlocked()
+	• rightIsBlocked()
+	• noBeepersInBag()
+	• noBeepersPresent()
+	• notFacingNorth()
+	• notFacingEast()
+	• notFacingSouth()
+	• notFacingWest()
+
+You can have else statements to execute if the condition is false:
+```
+if  (condition) {
+	statementIfTrue();
+} else {
+	statementIfFalse();
+}
+```
+
+Similarly, these if/else control statements can be put in methods.
+
+Iterative statements:
+	• When you want to repeat a series of commands for a defined amount of times, use a for loop:
+```
+for (int I = 0; I < count; i++) {
+	stuff;
+}
+```
+This executes the command for i number of times from i to value 'count', where I starts at 0 and increases 1 every iteration.
+
+For loops are great when you know exactly how many times to iterate.
+
+If you don't know how many times to iterate, you can use a while loop which uses a condition:
+```
+while (test fails) {
+	do this;
+}
+```
+
+The loops ends when the condition returns true.
+
+Solving general problems:
+	• Ideally, programs should be written such that:
+		○ The program should be able to work with roads of arbitrary length
+		○ The potholes may occur at any position in the roadway
+		○ Existing potholes may already have been repaired
+			§ Don't write Karel programs that fix every hole that exists
+
+Common bugs:
+	• When a program contains a logical flaw, programmers call this a 'bug'
+	• One common bug is a 'fencepost error'
+		○ This is when the solution to a problem requires one more action than would otherwise seem the case
+		○ For example, if making a fence 100 ft long with a post every 10 feet, the solution requires 11 posts actually (since starting at 0 requires one to be placed there)
+		○ When writing programs that use conditions and loops, take this into consideration so you don’t miss an action at the beginning or end of the problem

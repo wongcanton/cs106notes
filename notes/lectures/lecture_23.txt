@@ -1,0 +1,53 @@
+Lecture 23
+
+This lecture is taught by the TA, Ben.
+
+There is an important handout for today. See all those for this week.
+
+The current lecture path has mostly been instructing a computer to do something we could do by hand, and have the computer do them repeatedly.
+There are some things that we just can't do by hand. This lecture covers some of those, and more are in CS106B.
+
+Today's topic: Searhing and Sorting
+Chapter 12 looks at searching and sorting on Arrays
+
+Searching:
+	• Searching is a process of finding a particular element in an array or some other kind of sequence
+		○ The element we are searching for is called the 'key'
+	
+	
+The simplest search is to look through an array and see if the key is an element. This is called a 'linear search'.
+	• We can typically return -1 if the key does not exist in the array
+	• Linear searches are not efficient though, which is especially apparent with very large arrays
+
+Another search: start with the middle index.
+	• Check if your key is greater or lower than the middle index, and move up or down the array to the next midpoint depending on the answer of 'lower' or 'greater'. Continue doing this until the 'middle' value is the same as they key value
+	• This is called a 'binary search'
+	• If multiple elements with the key value, the binary search can return either index
+		○ This is not consistent and is a known issue with using binary searches
+
+The binary search requires that the array is sorted. The sorting itself can be costly, which in the case where the sort is more costly than just doing a linear search, it may make more sense to just to the linear search.
+
+HashMaps are great, but they too have some overhead to make in the first place. At a certain point, it would be more efficient to do a linear search over a large array than to make the array into a HashMap and then select by key.
+
+How do we compare search efficiencies?
+
+Sorting:
+	• The process of putting the elements of an array in order is called sorting
+Note: CS106B goes over many sorting algorithms.
+
+The simplest sortnig is a 'selection sort':
+	• Swap elements in array if a smaller value is found at an index higher than the current element
+
+Machines do get better over time so these efficiency issues are less apparent, but they will almost always matter for large data use cases.
+
+
+Comparing algorithms:
+	• We can physically measure execution times, and use stats to get averages and standard deviations for some number of trials per set
+	• We can also use a system library for outputting true execution time
+	• But both of these are machine dependent, and are not going to translate between computers easily
+		○ Especially if your computer is doing other operations at the same time as the execution of the Java program
+
+Radix sort:
+	• Sort by digit placements
+	• So for any set of digits that can be explained with XXXX:
+		○ Sort by the last X, then move up until the elements are sorted by each X

@@ -1,0 +1,97 @@
+Lecture 21
+
+This is a continuation of interactors.
+
+Remember we had that buttons responded with ActionListeners.
+	• This let actionPerfomed be run when a button is clicked, and noticed by ActionListeners
+	• actionPerformed(ActionEvent e){} runs
+
+Ex:
+```
+public void ActionPerformed(ActionEvent e) {
+	string cmd = e.getActionCommand();
+	do stuff with e;
+}
+```
+
+You can also call a method getSource() from an ActionEvent, which returns a refernce to the button object, as opposed to the gui name with getActionCommand().
+
+Therefore, the following works as well:
+`if (e.getSource() == myButton) {}`
+
+Why is this important:
+	• With getActionCommand, we rely on the name of the object when we assign it in a method
+		○ Remember we declare the variable as an instance variable, so it'a AVAILABLE TO ALL METHODS
+	• We can rely on just a reference to the object if we change the name later, or if we have two buttons with the same name
+
+I think its probably just better practice to use getSource(). This way we rely on the object alone, not necessarily the object's gui display name.
+
+This really comes up with the interactor JTextField.
+JTextField:
+	• Lets a user input some text
+	• When the user presses 'enter', the text is stored in the interactor
+
+```
+JTextField fieldName = new JTextField(int size);
+//now to add an action listener
+fieldName.addActionListener(this);
+//get value of field
+String text = fieldName.getText();
+```
+
+You need to add an action listener from the text field object itself.
+addActionListeners() works for buttons only. NOT TEXT FIELDS.
+
+You can also assign an actionCommand to a text field, and this serves as a 'name', somewhat.
+
+```
+textField.setActionCommand("lol");
+
+private method() {
+	if (e.getActionCommand().equals("lol") {
+		stuff;
+	}
+}
+```
+
+So this is similar to the button work we did before with the ActionCommands.
+
+Layouts are done in the init() method typically, with the syntax:
+`setLayout(new GridLayout(2, 3));`
+
+Different topic: intentional layout
+
+Layout: We can use this to assign positions for the interactors, not just in order of addition to the canvas.
+
+GridLayout
+	• You can change the layout of the window with this, with an assignment of rows and columns
+	• Then, you can add items (interactors) to the grid
+		○ The grid fills with interactors from 0,0 to the right and downwards
+	• This extends Program from acm.program
+	• This is because ConsoleProgram and GraphicsProgram are their own layouts, and they add to the center of the window
+	• This fills a grid position with an interactor, so the interactor can be as big as the window definition
+
+A layout manager (in Program) resizes the interactors as you resize the window.
+
+There's also the TableLayout:
+	• This however does not resize the interactors, they are static sizes independent of the window size
+
+Side note: there are also IntField and DoubleField to store ints and doubles only. Putting something not that gives the user an error.
+
+Linking interactors
+	• If you set the ActionCommand for multiple interactors to the same name, they both do the same thing
+	• Best example is a text field:
+		○ If we set the action command as the same as that of a button, you can either hit enter or click the button to return the value of the text field
+		○ This is common with search engines or unit converters for example
+
+In the case of a converter, you can set the vlaue of a text field. This helps with examples of a C to F converter.
+
+Now what if we want a console and a graphics section in a window?
+Using the acm package:
+	• Start with a ConsoleProgram
+	• Make a layout, and put the console in one element of the layout, and put a Gcanvas in another element in the layout
+		○ And you can add any other number of Gcanvas if you want too
+	• And this is just the Center part of the window! We can still add interactors to the North/South/East/West control bars!
+	• So essentially, the layout lets us have a lot going on in a window.
+
+COMMON ERROR: Forgetting to add an action listener to any interactor. Remember to do this always.

@@ -1,0 +1,83 @@
+Lecture 7
+
+Check the handouts from the past few lectures.
+
+While loops are indefinite, in that it is not known how many times it will run.
+
+An interesting loop:
+```
+int total = 0;
+
+while (true) {
+	int val = readInt("enter a val");
+	if (val == 0) break;
+	total += val;
+}
+println(total);
+```
+
+This runs forever until the value is 0.
+	• The break stops the loop
+
+This prevents the duplicated code in this initial attempt:
+```
+int total = 0;
+val = readInt("enter val");
+
+while (val != 0) {
+	total += val;
+	val = readInt("enter val");
+}
+```
+
+So the break version makes the initialization in one line instead of two.
+
+I am supposed to be working on the current assignment now…
+
+The constant variables of format `private static final int` are defined in the main program class.
+	• This is to answer my question from before.
+	• This is done outside of the run() method in the main class, at least in the acm package programs
+
+Nested loops are possible in Java.
+	• They will be useful in the checkerboard problem in the assignment
+	• Remember to use different variable names for the nested for loop indicies
+
+
+Methods in Java
+	• Java methods are similar to in Karel
+Example:
+	sin(x) is a function, where the x is the argument passed
+	the value is returned
+	• So in Java, you write methods to work like that
+	• Side note: There's many useful methods in `java.lang.Math` that can be used
+		○ Math.sqrt(x)
+		○ Math.pow(x, y)
+	• Methods are helpful to do information hiding and reuse them
+
+Defining methods:
+	• Call a method with:
+	`receiver.name(arguments)`
+	This 'sends' the 'name' message to receiver.
+	• Arguments are used as the parameters in the methods/fuctions
+	• General method definition:
+	```
+	visibility type name(parameters) {
+		body;
+	}
+	```
+		○ visibility = private or public (make private for the most part)
+		○ type = type of the return value, or void
+			§ So int if returns a integer
+			§ So double if returns a double
+			§ void if returns no value
+		○ parameters = the values used in the method for computation
+	• returning:
+	`return expression;`
+		○ The return ends the method no matter where it is
+	• You can also return objects
+		○ In this case, make the type of the method be the class name for the object returned
+		○ Remember making a new object:
+		`className varName = new className`
+		The className is needed in front of the var name because it is a TYPE.
+	
+Predicate Methods are methods that return a boolean.

@@ -1,0 +1,150 @@
+Java Chapter 7
+
+Java Chaper 7: The Object Memory Model
+
+7.1 The structure of memory
+	• bit = binary digit, 0 or 1
+	• byte = 8 bits
+	• word = 4 bytes
+
+Binary and hexadecimal representations
+	• Binary notation is a way to represent integers with sets of 8 bits, and integers are represented with each position^2
+		○ 00000000
+	• Each bit from the rightmost bit is position^2
+		○ 1
+		○ 2
+		○ 4
+		○ 8
+		○ 16
+		○ 21
+		○ 64
+		○ 128
+	• So to represent 42, it's 32 + 8 + 2 -> 00101010
+	• Binary notation isn't the easiest to read, so computer scientists came up with hexadecimal notation, which is of base 16
+		○ This combines binary notation of 8 bits to a two character notation: 00
+		○ The accepted values for each position are 0-9 and A-F
+			§ A = 10
+			§ B = 11
+			§ And so on, until F = 15
+		○ The left value is worth its value times 16, and the total value is the sum of the characters
+	• So in hexadecimal, to represent 42: 16 + 16 + 10
+		○ 2A => (2 * 16) + 10
+
+Memory addresses
+	• Memory is divided into units of bytes, and each byte unit has a location that is represented in hexadecimal notation
+		○ This is convention, and sometimes Java ouptuts memory locations in this hexadecimal notation
+	• Char takes up 2 bytes because 2 bytes can account all Unicode values
+	• Some Java data types and their size in memory
+		○ double takes up 8 bytes (64 bits)
+		○ int takes up 4 bytes (32 bits)
+		○ short takes up 2 bytes (16 bits)
+	• It is useful to break these down to 'words', so:
+		○ int = 1 word
+		○ double = 2 words
+
+Reminder: instance variable = variables declared in a class and available to all methods within it
+
+7.2 Allocation of memory to variables
+	• The JVM splits memory into about 3 sections:
+		○ Static variables and constants
+			§ This is a defined and limited area
+		○ Dynamically allocated objects, 'heap'
+			§ Stored objects. Called the 'heap'.
+			§ Grows as needed downward from statics to the stack
+		○ Local variables, 'stack'
+			§ Stores local variables and object references
+			§ Method variables are stored here as a 'stack frame', and then are 'popped off' as the method completes to free memory again
+	• The stack contains 'references' to objects, which are the addresses to heap locations for the start of the class allocation
+		○ The reference is the length of a 'word' (4 bytes)
+	• Objects in heap have some length of memory for an overhead of class definitions common to many objects, then store the properties and methods for the object
+		○ The 'object overhead' is the memory used for the class definition that doesn’t include the properties and methods
+		○ The address for the object is the start, and the properties have their own addresses
+	• When a method is called on an object, the stack frame grows by all primative types and objects, but also includes a location for 'this', which is a reference to the actual object being called on
+		○ This means that when you use 'this' in the method, modifications are done to the real object store in the heap
+
+Garbage Collection
+In some object operations, intermediate objects are created, and a final object is created that is the result. In this case, only the last one is used, so the intermediate object then serves no purpose.
+	• This intermediate object that has no use is called 'garbage'
+		○ This is taking up space in the heap and we don’t need it
+When the Java runtime finds that heap space is running short in a program, it undergoes 'garbage collection', which is a process of clearing unused space in the heap to free it again.
+The Java runtime follows a strategy of 'mark and sweep' to do this, which works in two general steps:
+	• Go through all references in the stack and static storage, and 'mark' the locations in heap that correspond to those references
+	• Then goes through heap and removes all objects that were not 'marked' in the marking step
+		○ This is the 'sweep'
+Garbage collection keeps the programs running without stopping due to memory shortage when the memory can be purged of useless allocations.
+
+7.3 Primative types vs objects
+The treatment of primitive types vs objects is different when calling methods, in particular, the value in the stack is passed to methods: for primitive types this is the actual value, but for objects this is the reference. This leads to very different behaviours when calling methods.
+
+Parameter passing
+When you pass primitive types into methods, you 'pass by value'. This means that the values of the variables are copied and added to the stack frame. Because of this, modifications to the variables in the method are not done on the actual variables. This is why you must do the following to actually change the value (a declaration)
+```
+public int someMethod(int x) {
+	some change to x;
+	return x;
+}
+
+//main
+int x = 5;
+x = someMethod(x);
+```
+
+This is in contreast to objects, where modifications to the object in the method change the state of the object in the main program. You can use this behavior to change objects.
+```
+public class ObjectInteger {
+	has some instance variable int x;
+	has getters and setters;
+}
+
+public ObjectInteger increment(ObjectInteger x) {
+	x.setValue(x.getValue()++);
+}
+
+//main
+ObjectInteger x = new ObjectInteger(5);
+increment(x);
+```
+Now x is changed from the method without a declaration in the main program.
+
+Wrapper classes
+Java has classes written by default that are like the ObjectInteger above, and they are implemented to just be the data type with the first letter capitalized:
+	• Integer = int
+	• Character =  char
+	• Short = short
+	• Long = long
+	• And so on for the primative types
+This is useful for many reasons including adding primitive types to the ArrayList class:
+	• We will later learn about ArrayList, but it's important to know that it can only store object, not primitive types
+	• These 'wrapper classes' allow assignment of primitive types to object so they can be used in this ArrayList class for example
+To get the value for the primative type in these wrapper classes, just call:
+`objectName.typeValue()`
+Where 'type' is the primative type. For example:
+```
+int n = 5;
+Integer nWrapped = new Integer(n);
+println(nWrapped.intValue();)
+```
+This works for the other wrappers as well, always `typeValue()`.
+It is VERY IMPORTANT to remember that these wrapper classes don't have setter methods. They are immutable by default, so they are essentially constants in that regard. If you want to make mutable wrapper classes for primative types, you will have to use some external library or write your own classes.
+
+7.4 Linking objects together
+Since object variables in the stack just store references to objects in the heap, you can technically 'link' two objects in the stack to the same reference.
+```
+ObjectInteger n = new Integer(5);
+ObjectInteger m = n;
+```
+m has the same reference to n, so changes to n are seen in m as well. This reinforces the idea of 'message passing' in Java, since method calls are 'messages' sent to a 'reciever' object. This is how objects interact with each other in Java. Keep this metaphor of message passing in mind.
+
+Message passing in linked structures: The beacons of Gondor
+The book uses the scene in Return of the King of lighting the signal flame cascade to notify Rohan of the invasion in Minas Tirith (city lights flame on mountain, next mountain lights its flame, next mountain lights its flame…until next city sees the most visible mountain). The example writes a class to handle this in the following fashion:
+	• Object contains instance variables for its tower name, and the name of the next tower
+	• Constructor is made by passing a tower name, and the next tower name
+	• Method 'signal' 'lights' the current tower, and then sends a message to the next tower by
+		○ `nextTower.signal()`
+		○ This cascades the signal() method call throughout the objects with the messages
+It's important to note that the Rohan object does not have a nextTower, so the value for nextTower is assigned 'null'.
+	• null is a value for 'null value'. This lets you assign a value to an instance variable, and you can use 'if (value == null) do nothing'.
+Note: it is standard practice to make 'stub' methods that are actual methods but aren't fully fledged methods. This allows you to have a placeholder method for purposes of testing a newly implemented class.
+
+The internal representation of linked structures
+When objects contain instance variables that are references to other objects, the values are pointers (references) to the other objects, not the object stuctures in their entirety. Storing the pointers to these other objects is compact, and allows for sending messages to the other objects. An assignment of null to a reference points to no object.

@@ -1,0 +1,113 @@
+Lecture 15
+
+Pointers
+	• If you assign two objects to the same location in memory, changing one object changes the values for both objects
+	• If you declare an object without noting the constructor, the value for the object is a null pointer
+	`Goval o1;`
+	`o1.setLocation(1, 2);`
+		○ This fails because there is no object associated with it, the pointer is null
+	
+Remember that when you call methods,  copies of variables are used. So, this means that the stack grows temporarily to hold copies of these.
+For passing objects, you pass the object reference (pointer). Thus, modifications to the object passed in the method modify the actual object in the heap.
+
+So for primitive types, you 'pass by value' since you pass a copy of the variables as the VALUE. For objects, you 'pass by reference' since you pass the 'reference' (pointer) to the object to the method.
+
+If you want to modify a primitive variable in a method instead of 'pass by reference', you can encapsulate the variable in an object and then 'pass by reference' to the method!
+Java actually has pre-defined classes to do this for many primitive types.
+For example, int has the class Integer.
+	• This stores an integer
+double => Double is the class
+boolean => Boolean
+char => Character
+
+These classes are actually immutable though.
+
+Next topic: Files
+
+Reading files
+Files are read one line at a time, and they can be read into Strings.
+	1. Open the file
+		a. Assign the file to an object, where the object is of type BufferedReader
+	2. Read file (line by line)
+	3. Close the file
+		a. Severs the connection between the BufferedReader and the file
+Package to use: java.io.*
+
+File reading idiom
+```
+BufferedReader rd = new BufferedReader(new FileReader("filename.txt"));
+while (true) {
+	String line = rd.readLine();
+	if (line == null) break;
+	println(line);
+}
+rd.close();
+```
+When a file is read, the last line (EOF) is null.
+
+What if the file doesn’t exist?
+Exception is thrown.
+
+Exceptions
+	• Exceptions are "thrown"
+	• When exceptions are thrown, they must be 'caught' or the program ends
+	• To catch exceptions, you `try`
+In the case of this file, let's 'try' to read the file
+```
+try {
+	code for file reading;
+} catch (IOException ex) {
+	deal with exception;
+}
+```
+Try blocks are executed until an exception, then the code block for catch is executed.
+
+Now for an example with reading a file and handling exceptions:
+```
+private BufferedReader openFile(String prompt) {
+	BufferedReader rd = null;
+	//Initalized file reader
+	while (rd == null) {
+		try {
+			String name = readLine(prompt);
+			rd = new BufferedReader(new FileReader(name));
+			//Now exception may or may not be thrown
+			
+		} catch  (IOException ex) {
+			println("Bad file.");
+			//Then filereader is still null so it tries again
+		}
+	}
+	return rd;
+}
+```
+
+It's good practice to only use try/catch blocks for small 'dangerous' sections of code, such as reading information from a user.
+
+What if we get an exception when trying to read the file? Say it's deleted while reading it?
+```
+BufferedReader file = openFile("enter a file");
+try {
+	while (true) {
+		String line = rd.readLine();
+		if (line == null) break;
+		println(line);
+	}
+	rd.close();
+} catch (IOException ex) {
+	throw new ErrorException(ex);
+}
+```
+
+If you don't know the exception type and meaning, just throw it in the 'catch all' ErrorException class.
+	• Contained in acm.util package
+
+Now for writing files!
+	1. Open a file
+		a. new PrintWriter(new FileWriter("filename.txt"));
+	2. Write lines
+		a. PrintWriter.println();
+	3. Close file
+		a. PrintWriter.close();
+
+Note that if a file already exists, you overwrite it. This is good reason to use try/catch blocks.

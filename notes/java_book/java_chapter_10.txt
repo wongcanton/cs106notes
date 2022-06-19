@@ -1,0 +1,168 @@
+Java Chapter 10
+
+Chapter 10: Arrays and ArrayLists
+
+The most notable examples of uses of 2 dimensional arrays is electronic spreadsheets like Microsoft Excel.
+
+Arrays are ordered collections of values, which make life easier in Java than relying only on individual values. Java has arrays, and classes that build on top of it like the ArrayList.
+
+10.1 Introduction to arrays
+Arrays have the following characteristics:
+	• Ordered
+		○ Each element has an index, which is a number that represents the position of the element in the array
+	• Homogeneous
+		○ All elements are of the same type, like integer or floating point number
+There are two fundamental properties of the array:
+	• Element type = the type of value stored in the array (and its elements)
+	• Length of the array, given in number of elements
+In Java, the element type and length are set at different times.
+
+Array Declaration
+The general syntax for declaring an array in Java is:
+`type[] name = new type[length]`
+This does two things:
+	• Says that the 'name' variable is an array of type 'type'
+	• Creates an instance of the array of length '[length]'
+ Array elements in Java are indexed such that the index always starts with 0, and goes up to (length - 1).
+
+Note: In practice, it is common to declare constants for array lengths, and then use those constants in the declaration of the arrays.
+Example:
+```
+private static final int N_JUDGES = 5;
+double[] scores = new double[N_JUDGES];
+```
+You don't always have to use constants (and you shouldn't if the length of the array should be different per each run of the program), but if it is some static length it is best to use a constant for the length.
+
+Array selection
+To return the value of a specific element in the array, you use a process in Java called 'selection', which is done with 'selection expressions'. To do this, you call the array name an index of the element like this:
+`arrayName[indexOfElement]`
+That returns the value of the array at index 'indexOfElement'.
+Assignment of values to the elements works in a similar way:
+`arrayName[indexOfElement] = value;`
+Note that calling array element values by index is fine and dandy, but the true power of the arrays comes when you use a for loop to work with the array:
+```
+for (int I = 0; I < arrayName.length; I;;) {
+	arrayName[i] = "lol";
+} 
+```
+
+Example of a simple array
+The book has an example of array use.
+
+Changing the index range
+While it is generally understood and agreed upon among programmers that array indicies start on 0, this doesn't make sense to many users since they start counting with 1. There are two main ways to deal with this:
+	1. Have the array declared as normal notation, but when requesting interaction from a user you display the value of (index + 1).
+	2. Have the array declared as length + 1, and ignore the 0 index entirely.
+The first approach is more preferable since that is how most programs work.
+
+10.2 Internal representation of arrays
+Arrays are stored as objects in the heap, and their pointers are stored in the stack like objects are stored. Here is how the array is represented in memory, with fictional addresses as an example:
+STACK:
+	value	address
+	1000 (pointer for arrayName)	FFBB
+HEAP:
+	value	address
+	object overhead	1000
+	length	1008
+	arrayName[0]	1010
+	arrayName[1]	1020
+	…
+So in general, just rememeber that they are treated as objects in memory. This is important to know, which explains why arrays are passed by reference, not passed by value, to methods.
+
+10.3 Passing arrays as parameters
+Arrays are passed by reference, so changing values of elements in the array within a method changes the value of the element in the array forever.
+
+Implementing reverseArray
+Consider a method that takes an array as an argument, and the method reverses the order of the elements of the array, such that the last element becomes the first, and so on.
+	• Note that the swapping only needs to occur arrayName.length / 2 times, because the values on each side are switched
+	• This does not depend on if the arrayName.length is odd, since the middle element will be the same forward and reverse
+```
+private void reverseArray(int[] array) {
+	int n = array.length;
+	for (int I = ; I < array.length / 2; i++) {
+		// array[i] will become array[n - 1 - i]
+		swapElements(array, I , n - 1 - i);
+	}
+}
+
+private void swapElements(int[] array, int p1, int p2) {
+	int temp = array[p1];
+	array[p1] = array[p2];
+	array[p2] = temp;
+}
+```
+
+10.4 The ArrayList class
+In many cases you do not know the length of the array you need before executing a program. You could just make an infinitely long array, but that is impractical. You could also make your own self extending array, which is possible, but cumbersome. With these in mind, it makes mose sense to try out the ArrayList class from the java.util package, which lets you make an array of an undefined length. Characteristics of the ArrayList class:
+	• No need to use bracket notation to call elements in the ArrayList
+	• Each element of the ArrayList must be of class Object
+		○ This makes the ArrayList general enough to handle all types of objects, but also requires that primitive type values be stored with wrapper classes
+Declaration:
+`ArrayList listName = new ArrayList();`
+To interact with elements of the ArrayList, you use `get` and `set` methods. There are other methods as well, so here is a quick summary of the most common ones:
+	• int size()
+	• void add(Object object)
+	• void add(int index, Object object)
+	• void remove(int index)
+	• void remove(Object object)
+	• void clear()
+	• Object get(int index)
+	• void set(int index, Object object)
+	• int indexOf(Object object)
+	• boolean contains(Object object)
+	• boolean isEmpty()
+Note that you use size() not .length for ArrayList
+
+10.5 using arrays for tabulation
+Arrays are great for making lists of things, but they can also be used to tabulate data for a predefined number of variables. The example given is a counter program that counts the number of times each letter is entered by a user. There, the data structure of an int array of length 26 makes sense, since each element can be represented by index as the letter in the alphabet, and the number of times the letter was entered can be stored as the value in the index of the array.
+
+10.6 Initialization of arrays
+You can create an instance of an array and initialize the values of the elements in the same expression. Here is the format:
+`type[] arrayName = {value, value, value};`
+The values are put in curly braces {}, and the expression can span multiple lines too:
+```
+type[] arrayName = {
+	value,
+	value,
+	value
+}
+```
+Putting a comma after the last value is optional.
+
+Note that there is no need to call `new` when initializing with values.
+
+10.7 Multidimensional arrays
+Arrays can also have elements that are arrays, so the resulting main array can be seen as a multidimensional array. The most common of these is a 2D array, or a matrix. 3D< arrays are also legal, but not often used.
+To make and use 2D arrays, you just use two bracket notations, where the first can be represented as the row, and the second as the column:
+`type [] [] matrixName = new int[rows][columns];`
+In memory, the matrix is stored as an array of arrays, where the elements of the matrix are:
+	row[0]: [0][0], [0][1], …
+	row[1]: [1][0], [1][1], …
+
+Passing multidimensional arrays to methodsf
+You can pass a multidimensional array to a method just like you do single dimensional arrays. Just remember to note the multidimension in the parameter. Ex:
+`private void myMethod(int [][] matrix){};`
+
+Initializing multidimensional arrays
+Initializing multidimensional arrays works the same as single dimensional arrays, now you just have a pair of curly brackets for each row inside a main curly bracket pair. Ex:
+```
+int [][] matrixName = {
+	{1, 2, 3},
+	{4, 5, 6},
+	{7, 8, 9} 
+}
+```
+
+Side Note: A matrix of frequenies (from 0.0 to 1.0) is called an identity matrix. These are common in many math operations.
+
+Summary
+	• Array declaration, no initialization:
+	`type[] arrayName = new type[length];`
+	• Array declaration, initialization:
+	`type[] arrayName = {value, value, value};`
+	• Multidimensional array declaration:
+	`type[][] arrayName = new type[rows][columns];`
+	• Multidimentional array declaration:
+	`type[][] matrixName = {{value, value}, {value, value}, {value, value}};`
+	• ArrayList declaration:
+	`ArrayList listName = new ArrayList();`

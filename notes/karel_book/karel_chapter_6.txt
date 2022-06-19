@@ -1,0 +1,51 @@
+Karel Chapter 6
+
+Karel Chapter 6: SuperKarel
+
+As is, the Karel class is very limited for teaching purposes.
+The stanford.karel package also has a SuperKarel class that has more functionality.
+
+turnRight and turnAround:
+	• As described in previous sections, this is included in SuperKarel
+
+Using color:
+	• SuperKarel can paint the corner it is standing on with `paintCorner(color);`
+	• The value in the parentheses is the 'argument', which is the value passed to the method
+	• The volors can be: BLACK, BLUE, CYAN… and null
+		○ null makes the corner have no color
+		○ In a new Karel world, all corners are initially null color
+
+Similarly, SuperKarel has a condition `cornerColorIs(color)` to check if the corner is of that color.
+
+Random behavior:
+	• SuperKarel has a condition `random()` which returns true half of the time
+	• Can be used like this:
+```
+if (random()) {
+	paintCorner(RED);
+} else {
+	paintCorner(YELLOW);
+}
+```
+	• You can pass an argument of the probability for true between 0 and 1 such that:
+		○ 0 = always false
+		○ 1 = always true
+		○ 0.25 = true 25% of the time
+
+Logical operations
+	• When writing Karel programs, it may come where you just want to say 'do when this AND this are true' or 'do when this OR this are true'
+	• Well in fact you can, with logical operators:
+		○ &&
+			§ equivalent of 'AND'
+		○ ||
+			§ equivalent of 'OR'
+		○ !
+			§ equivalent of 'NOT'
+	• For example:
+```
+while (frontIsClear() && noBeepersPresent()) {
+	move();
+}
+```
+
+Note that all of these operators are true operators in Java, there are more than these operators. In fact, all of the syntax in Karel is Java syntax. Karel is just a limited set of Java features, but Karel programs run with the Java compiler. What this means is that while you can use more complex operators in Karel and it will still run (because it is Java), please don't for the purpose of learning with Karel.

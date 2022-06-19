@@ -1,0 +1,75 @@
+Lecture 25
+
+The beginning of this class: on the next assignment.
+
+This assignment is on social networks.
+
+Social Network:
+	• Tracks people, and their relationships to other people
+	• Each user has a profile
+	• Each profile has the following attributes:
+		○ Name:string, can be the unique identifier
+			§ Case sensitive
+		○ Status:string
+		○ Image:GImage
+		○ List of friends:list of names of friends
+Friendship in this social network:
+	• It is reciprical
+		○ So friends are each added to each others' friends lists when a request is made
+Profile Image
+	• The image is a constant size
+Only one profile shown at a time.
+Application has an 'application message' that shows the last action.
+Starter project will have images for class professor and Tas to test.
+When a field is empty, have the interactors do nothing.
+Make sure the image change searches to see if the image exists.
+Invalid profile names should show user that the user does not exist when requesting to add as friend.
+	• Essentially this is a good challenge in data management
+Handout has all of these notes and details.
+
+NO RESIZING NEEDED.
+
+Now new topic: not necessary for the final or assignment 7, but intersting.
+
+Concurrency:
+	• Rationing of computation time between applications so they look like they are all running at the same time
+	• This is made possible with Threads
+
+Thread:
+	• A thread can be seen as a piece of a program, or some set of instructions for the program that are okay to be executed
+	• So multi-threaded programs can execute multiple threads at the same time
+	• What is a thread in Java?
+
+Runnable interface:
+	• Each class that implements this interface can be made into a thread
+Ex:
+```
+public class MyClass implements rubbable {
+	public MyClass() {
+	
+	}
+	
+	public void ru() {
+		// this is the thread!
+	}
+}
+```
+So 'Program' implements the Runnable interface.
+
+Event thread:
+	• This monitors events
+	• So we had multiple threads with the eventlisteners
+
+How to create a thread:
+	• Make something of the class Runnable
+	Ex:
+	```
+	myClass x = new myclass();
+	Thread t = new Thread(x);
+	t.start();
+	```
+	When thread starts, it runs the run() method.
+	
+Threads can interact with other threads, using shared data.
+	• If a thread has a reference to one object, and other threads also reference that object:
+		○ All threads are updated when one updates the object value

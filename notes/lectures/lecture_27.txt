@@ -1,0 +1,61 @@
+Lecture 27
+
+Topic of today:
+	• Life after CS106A
+
+Computer Science is not 'computer programming'. There's a lot more to it.
+
+CS106B is 'Programming Abstractions'. It's in C++.
+	• It goes over implememting things like the HashMap
+	• Goes over recursion, for example
+
+CS103: A, B, or X. This is on Discrete Math.
+	• Discrete math covers things like sets, computability
+	• Is p = np? This is a $1M problem
+	• Also goes over graph theory
+
+CS107 and CS108: 
+	• 108 = Object oriented systems, large systems
+	• 107 = low level programming (on hardware)
+
+Topics:
+	• AI, start with CS221
+		○ Robotics
+		○ Computational Biology
+		○ Data analysis
+	• Graphics
+		○ Animation
+		○ Digital photography
+	• Databases
+		○ Search engines
+	• Cryptography
+		○ Security
+	• Machine Learning
+		○ Spam filtering
+	• HCI (human computer interaction)
+
+Some other classes:
+	• Operating systems: start with CS140
+		○ Lots of systems classes
+	• CS161: Data structures
+
+Careers:
+	• CS + business
+		○ Can be a product manager
+		○ Entrepreneurship
+		○ Finance (computational)
+	• CS + biology
+		○ Bioinformatics
+		○ Genomics
+		○ Proteomics
+		○ Bioengineering
+	• CS + law
+		○ IP
+		○ Copyright
+		○ Patents
+	• CS + CS (just cs…)
+		○ Programming (software engineering)
+		○ Engineering management
+		○ Teaching
+			§ CS198 = section leader for CS106A/B
+			§ Companies like picking these students because they are known to be good at programming but they can also communicate

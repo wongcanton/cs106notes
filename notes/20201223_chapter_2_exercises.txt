@@ -1,0 +1,32 @@
+20201223 Chapter 2 Exercises
+
+To run java programs, I'll need to compile them.
+I installed the most recent jdk here:
+https://www.oracle.com/java/technologies/javase-jdk15-downloads.html
+
+I should be able to run them on my system now.
+
+I need to install the acm.program package before I can run anything.
+https://cs.stanford.edu/people/eroberts/jtf/
+Get the acm.jar
+
+Nevermind this is too much for now. Just wait to see in lecture if they talk about how to run java files in eclipse.
+
+
+I got it much later.
+I downloaded a blank java project here:
+https://web.stanford.edu/class/archive/cs/cs106a/cs106a.1178//resources/BlankJavaProject.zip
+I then put my java programs using the acm package in the /src/ folder. They run in eclipse that way.
+
+The way they made the acm.program platform for the class, as defined here:
+https://cs.stanford.edu/people/eroberts/jtf/
+requires the use of pre-defined project trees and use of specific jar files.
+
+For now, use this boilerplate setup to focus on the programming as is in the class, and focus on general java use later.
+
+
+Exercise 1:
+Change hello world to say "I love Java" and have my signature at the bottom right corner
+Done
+
+Work on next one. So far I'm copying the BlankJavaProject for each assignment, since it has all of the boilerplate files I need in this environment.

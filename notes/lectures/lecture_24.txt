@@ -1,0 +1,56 @@
+Lecture 24
+
+Topic of today:
+	• Data structures for large scale
+Next assignment is to make a social network.
+
+Principles of data structures for large applications:
+	• Think of the 'nouns' of the data, which can turn into 'classes'
+	• 'verbs' can then be the methods associated with the classes
+	• Unique identifiers
+		○ This helps assign classes for each group of data
+
+Design:
+	• Are there collections of objects?
+		○ Should you then store them in java collections? Likely
+
+So back to the collection hierarchy:
+	• ArrayList
+	• HashMap
+
+So why decide on HashMap or ArrayList for storing some collection of objects?
+	• Check the methods you need to use
+	• Note that a HashMap must have unique identifiers for keys, while an ArrayList does not require a unique identifier
+
+FlyTunes: an example
+	• This is a store that tracks albums in stock
+	• What it needs to track:
+		○ Songs in stock
+			§ Add and remove
+		○ Albums
+			§ Add and remove
+
+In our case, we'll make a class for the song. Properties:
+	• Name: String, static
+	• Band: String, static
+	• Price: Double, can be variable
+	• Unique identifier: ?
+
+Methods:
+	• getters and setters
+
+Now class album properties:
+	• Name: String, also can be the unique identifier
+	• Band: String
+	• List of Songs: ArrayList of songs
+		○ Be able to interate over the ArrayList of songs
+		
+Methods:
+	• getters and setters
+	• The getter for all songs can be an Iterator object
+
+Remember that all object passing is through reference. So an ArrayList or HashMap of objects each are essentially collections of references.
+
+This means that if 'albums' contain 'songs', then updates to price of the 'song' do update the album price, assuming the 'song' was added by reference and not made into a new 'song' during the definition of the album.
+
+So reuse of data through references is a powerful thing! This is called 'shallow copying'!

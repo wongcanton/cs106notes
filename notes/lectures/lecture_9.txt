@@ -1,0 +1,74 @@
+Lecture 9
+
+Two handouts: coding style and something else.
+Be sure to read them, they are really important.
+
+Strings
+	• Data type of a string of characters
+	`String str = "hello world";`
+	• You can concatenate strings in a print statement
+	• Getting a String from a user: readline();
+
+Making your own classes
+	• General format:
+	```
+	public class name 'extends superclass' {
+		body
+	}
+	```
+	Where the 'extends superclass' is optional.
+	If not extending from a superclass, the class by default extends the Object class.
+	• Make the class in its own file, and name the file className.java
+	• Private classes and methods are seen as 'not exported', so when the class is imported, those private classes and methods cannot be called
+	• In general, make the class public if intended for use, but make all instance variables and methods private unless specifically needed to be used by a client
+	• In eclipse: right click the folder name, click class
+		○ Opens a window about defining the class
+		○ Just make a name
+		○ Its fine that its in the same 'package'
+		○ Click finish
+		○ There is then a new file named className.java
+
+Making the class
+Construtor
+	• Does not have a return type
+	• Is named the same as the class name
+	• You can have multiple constructors, and they are allowed to differ by the parameters given when calling 'new'
+	• The constructor initializes the object and it is called when an instance of th object is made
+
+Example of reuse of names:
+```
+public Incerementor(int counter) {
+	this.counter = counter;
+}
+```
+	• The code assigns the value of the counter variable to the object's counter property
+	• If you just said `counter = counter;`, the parameter would just be assigned to itself, not the instance variable
+
+Reuse of names is discouraged, but if you do, be sure to call this.property
+
+When you pass objects as parameters to methods, you pass references to the object.
+	• The messages to the object, depending on the method, can modify the state of the object
+	• This is important to know since the object can be changed after a method call
+
+When calling a class that's in a file of the same directory, no need to import the file. You can directly just call the class in the program.
+
+Class variable
+	• Class variables are variables shared by all classes and instances of the object
+	• This is opposed to instance variables, which are only contained in an instance of the class
+	• To declare a class variable:
+	`visibility static varType varName;`
+	• This makes a static variable that is shared for all classes and instances
+	• So, if you make two different instances of a class and call the class variable, it is updated for ALL instances of the class
+	• Be aware of this to make sure I don't get one variable for all instances unless I actually want that (for a constant, it makes sense)
+
+Javadoc
+	• Javadoc comments start with /** and end with */
+	• Can include tags like @param and @result
+	• Javadoc is an automatically generated html page with documentation of the program
+See http://jtf.acm.org/javadoc/student for the javadoc for the acm package.
+	• It automatically includes superclass properties and methods if documented, which is really helpful
+	• Go to the javadoc to view objects and methods in the acm package, if I need to understand something
+
+All classes should have a public method toString to return all public variables as a string. This is good practice.
+
+

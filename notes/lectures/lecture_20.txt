@@ -1,0 +1,131 @@
+Lecture 20
+
+Topic of today: GUIs
+
+New the object names are PascalCase, and my OneNote corrected to remove the second capitals. Ex: Jbutton should have a capitol B but my app corrected it and I could not stop that at this time.
+
+GUI = Graphical User Interface
+Include:
+	• Buttons
+	• Sliders
+	• Checkboxes
+	• Radio buttons
+	• Combo box (dropdown menu)
+	• Text box
+These are all 'interactors'. How to we use these in a Java program?
+We can use a library (outside of the acm libraries):
+	• java.awt.event.*
+	• javax.swing.*
+		○ Has graphical interactors
+
+Swing Interactor Hierarchy:
+	• All interactors are Jcomponents
+		○ Jcheckbox
+		○ Jbutton
+		○ Jradiobutton
+		○ Jlabel
+
+So Swing is Java's default library for making GUIs. Like tkinter for python.
+
+We put the compontents into a Window.
+Imagine a Window, there is a:
+	• Center
+	• North
+	• West
+	• East
+	• South
+ConsoleProgram and GraphicsProgram have only used the Center. The other regions don't show up unless you put an interactor there.
+The regions that have interactors are then called 'Control Bars'.
+
+Making our first interactor:
+We'll make a button, we need to make type Jbutton:
+```
+Jbutton button = new Jbutton("Hi");
+add(button, South);
+//South, like the other regions, are constants
+
+add ActionListeners();
+```
+
+The interactors are added in order, centered in the Control Bar region.
+Now in a program form:
+```
+public void init(){
+	add(new Jbutton("Hi"), South);
+	addActionListeners();
+}
+
+public void actionPerformed(ActionEvent e){
+	String cmd = e.getActionCommand();
+	//This returns a string of that the action performed was
+	//In this case for the button, the return value is 'Hi' here
+	if (cmd.equals("Hi")) {
+		println("Hello there");
+	}
+}
+```
+For any Action, you always must add this 'actionPerformed' method, and only called when an interactor is clicked.
+
+Now Checkbox:
+```
+JCheckBox check = JCeckBox("Front");
+//Set intial state
+check.setSelected("true");
+add(check, South);
+```
+
+For checkboxes, you return if it is selected to see the state:
+`boolean Jcheckbox.isSelected();`
+
+Now Radio buttons:
+```
+//instance variables
+private JRadioButton small, large;
+
+public void init(){
+	small = new JRadioButton("small");
+	large = new JRadioButon("large");
+	ButtonGroup size = new ButtonGroup();
+	size.add(small);
+	size.add(large);
+	//initial state
+	large.setSelected(true);
+
+	//Adding to window, you add each one at a time, not the group
+	add(small, South);
+	add(large, South);
+}
+
+//then in some method you can check the selected status
+private void someMethod(){
+	small.isSelected();
+	large.isSelected();
+}
+```
+Now one group has the two radio buttons in it.
+
+
+Slider syntax is in the book, and not covering it here since instructor mentioned they aren't used often.
+Now combo box:
+```
+//instance variable
+private JComboBox pick;
+
+// in init():
+public void init() {
+	pick = new JComboBox();
+	pick.addItem("Black");
+	pick.addItem("Blue");
+	…
+	pick.setEditable(false);
+	
+	//initial state
+	pick.setSelectedItem("Black");
+	
+	add(pick, Center);
+}
+```
+
+ComboBox allows user input by typing, which is outside the values that are added with .addItem(). To prevent user from adding choices, be sure to set the setEditable property to false. Default is true, we think.
+
+Side note: awt = Abstract Window ToolKit

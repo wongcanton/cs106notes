@@ -1,0 +1,87 @@
+Lecture 18
+Wrapping up multi-dimensional arrays
+	• What happens if you just call one index of the multi-dim array?
+		○ You call an entire array of this 'array of arrays'
+	• So you can pass one index to pass a single one dimensional array
+
+The ArrayList Way
+	• ArrayList of Array?
+ArrayList:
+	• Pros:
+		○ Dynamic resizing
+		○ other operations, like  contains()
+	• Cons:
+		○ Less efficient than array
+		○ Syntax can get bulky
+			§ Need to do getter method every time you want the value
+		○ Needs Java 5.0 or newer
+			§ No box/unbox automatically
+	• Fixed size, almost always use an array!
+		○ Will likely need this in the next assignment
+
+Debugging
+	• Note that there are several roles when writing software:
+		○ Design: the architect
+		○ Coding: the engineer
+		○ Testing: the vandal
+			§ This is when you should try to break the program in any way possible
+			§ This role is what makes sure the software is stable
+		○ Debugging: the detective
+			§ This role fixes the problems revealed by the tester
+
+Four D's of software development:
+	• Design
+	• Development
+	• Degugging
+	• Deployment
+
+The cost of bugs in each level is 10x more costly to fix.
+	• Design flaws cascade all the way down to deployment
+	• Deploying and needing to develop patches is very expensive
+	• For example, the Mars Rover died because of a design flaw: coding in feet vs meters between different engineering teams
+
+What causes bugs (big three)(:
+	1. Bad variable values
+	2. Faulty logic
+		a. Meaning to do X, but computer does Y
+	3. Unwarrented assumptions
+		a. Check assumptions, such as pre and post conditions for methods
+
+Note that many bugs are simple, such as a typo.
+Be systematic when debugging.
+Try not to make assumptions at where the problem is.
+	• Intuition is not fact
+
+Check the next handout, it has 11 tips for debugging.
+
+Be critical of code.
+	• Everyone can make mistakes.
+
+Most important: Don't panic when finding bugs.
+	• Bug is in one place, so we just have to find it.
+
+
+Approaches to debugging:
+	• printf debugging (comes from C printf printing)
+		○ println() to debug and find if 'bad values' were designed
+		○ Find if method is called and run correctly
+		○ Print values of variables
+	• Unit testing
+		○ Test individual methods and units in the program
+		○ Check that the methods work as expected with some values
+
+Debugging in Eclipse:
+	• You can click lines in the left side to make a 'break point'
+	• Then run again with the debugger (bug button)
+	• When break
+		○ Shows stack call (line calls)
+		○ You can see values for each variable at the break point
+		○ Take note of these things
+			§ Especially the seed value for a psuedorandom number generator so you can run the program from the same seed
+		○ There's buttons to run through the whole stack and let you see the values
+		○ See the handout for instructions
+	• Go back to editor mode and see what you need to change
+
+REMEMBER THAT STRINGS HAVE A .equalsIgnoreCase() METHOD, USE THIS IN MY PROGRAMS.
+
+Also note that assignment 5 was given out in this lecture.

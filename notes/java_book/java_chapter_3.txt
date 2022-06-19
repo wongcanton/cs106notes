@@ -1,0 +1,103 @@
+Java Chapter 3
+
+In this chapter, I'm going to try keeping my notes to a minimum to save on time.
+The primary focus will be reading, and noting major things here that should be written down again.
+
+Java Chapter 3: Expressions
+
+Java syntax and expressions are very similar to C.
+FORTRAN was the first language to include expressions that look like traditional math (x1 + x2) instead of just machine code.
+
+Carrying out an expression is called 'evaluation'.
+
+Java's primitive data types are the default data types that can be operated on, and are not typical objects.
+
+Allowed values for a data type are called the 'domain'.
+Allowed operations for a data type are called the 'set of operations'.
+
+Java's 8 primitive data types:
+	• int
+		○ 32 bit integer
+	• byte
+		○ 8 bit integer
+	• short
+		○ 16 bit integer
+	• long
+		○ 64 bit integer
+	• float
+		○ 32 bit float
+	• double
+		○ 64 bit float
+	• char
+		○ 16 bit character from Unicode
+	• boolean
+
+String is seen as primitive, but because it is implemented in different ways by different packages, it is not by definition primitive.
+
+Exponents in standard Java are written as `2.001E+5` for example, for *10^5.
+
+Declaration format:
+`type identifier = expression;`
+
+Variables called inside a method are called 'local variables', since they are available only in the method.
+
+'Instance variables' are variables that are part of objects.
+'Class variables' are likewise part of classes.
+
+Declaring constants in a program:
+`private static final type name;`
+	• private makes the constant only within the class (program class usually)
+	• static makes this a class variable rather than an instance variable ***
+	• final makes the variable unchangeable
+
+In practice, constants are declared with names in UPPER CASE.
+
+For example:
+`private static final PI = 3.141592653589793;`
+
+Constants make programs easier to read and maintain.
+
+3.3 Operators and operands
+	• '-' can be 'unary operator' and a 'binary operator'
+		○ Unary is when it is used on one single variable (to make it negative)
+		○ Binay is when it is used on two variables (to subtract one value from another)
+	• Variable type matters when computing / or % of two variables
+		○ If one double, result is double
+		○ If only int, result is rounded to int
+	• Precedence
+		○ Java evaluates expressions in a specific order:
+		1. Unary minus operators
+		2. Multiplicative operators (*, /, %)
+		3. Additive operators (+, -)
+		○ In general, use () to make the operations go in the desired order so this precedence doesn't become an issue in programs
+			§ Parentheses are evaluated left to right in the order of the expression
+	• Type conversion
+		○ When you do expressions on conflicting data types, Java automatically converts one to the other type to evaluate the expression
+		○ Ex:
+		`1 + 2.3`
+		This converts the int '1' to a double, and then evaluates to return 3.3 as a double.
+		○ This does not convert the variable (if using one, in this case we just used a raw value) forever, only just for the evaluation
+		○ To be explicit in the type you want to use for an evaluation, use a 'cast':
+		`int n = (int) 1.99999999;`
+		○ This 'casts' the value of 1.99999 as int (1)
+		○ This type casting system in Java truncates the value to it's rounded down value (without the fraction)
+	NOTE THAT JAVA ROUNDS DOWN WHEN DOING A TYPE CAST
+
+3.4 Assignment statements
+	• Assignment is the assignment of a value to a variable after the variable has been initialized
+	Format:
+	`variable = expression;`
+	• The collection of variables in a particular invocation of a method is called a 'stack frame'
+		○ So in any method, the variables together are called the stack frame
+
+3.5 Programming idioms and patterns
+	• Programming idioms or programming patterns are repeated patterns that are so common that they are collectively understood in each situation without explaining
+	• The first example of this is adding to an existing value:
+	`x = x + 1`;
+	• This is so common that is has its own shorthands:
+	`x += 1;`
+	And for only adding one:
+	`x++`
+	• Subtraction follows a similar suit:
+	`y -= 1;`
+	`y--`

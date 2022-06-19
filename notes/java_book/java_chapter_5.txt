@@ -1,0 +1,138 @@
+Java Chapter 5
+
+Java Chapter 5: Methods
+
+5.1 A quick overview of methods
+	• A method is a set of statements that have been collected together and given a name
+	• Methods are called to execute them
+	• You pass arguments to methods that are used in place of parameters in the method definition
+	• Values can be passed from methods to the caller as the value of the call
+		○ This is called returning the value
+	• Methods can be helpful to use because of their information hiding, or hiding the details from the programmer to accomplish an easily understandable outcome
+		○ For example, the println method may be very complicated, but there's no reason to know because it always does what we want: print a line
+	• Methods are tools for programmers more than users
+		○ Users can use a program which hides all of the information from the user, and accomplishes  goal
+		○ The programmer uses methods to make a more abstract code that encapsulates details that aren't necessary for the programmer to understand
+		○ Users use programs, programmers use methods
+	• It's important to distinguish between input and arguments
+		○ INPUT COMES FROM A USER
+		○ ARGUMENTS COME FROM A PROGRAMMER
+		○ So readInt gets input from a user, and println gets arguments from a programmer
+	Do not call arguments 'input'. 
+	INPUT
+	COMES
+	FROM
+	THE
+	USER
+	NOT
+	THE
+	PROGRAMMER
+Method calls as expressions
+	• Method calls themselves are expressions
+
+5.2 Methods and the object-oriented paradigm
+	• Methods are defined as part of a class
+		○ So all instances of that class have access to those methods
+		○ They can be called with
+		`methodName(arguments);`
+	• In OOP, objects send information and requests to each other, which are called 'messages'
+		○ Sending a message is having one object call a method that belongs to another object
+		○ A 'receiver' is what gets the message
+		○ This can be done with
+		`receiver.methodName(arguments);`
+	• For example, say println is a public method in the Program class
+		○ Every subclass of Program can call println(), and other classes outside of Program can call it with Program.println()
+	• It can be helpful in some cases to explicitly write the receiver even if the receiver is the current object
+		○ This is done with the `this` receiver
+		○ For example, in Program:
+		`this.println();`
+		
+For my understanding: the programmer sends a message of a method call to the object, and the object uses the message to call its own method.
+
+Usig Gobjects as receivers
+	• We've used Gobject classes and sent messages to them before
+	```
+	public void run() {
+		label  = new Glabel("hello world");
+		label.setFont("Helvetica-24");
+		add(label, 100, 75);
+	}
+	```
+	
+	This calls a 'constructor' to make a new object, this is what the 'new' method does.
+	The setFont message on label is a message of calling the setFont method on the receiver, label.
+	
+	Note: A font is an encoding that maps characters to images on a screen.
+	In Java, the font is called with a 'family name' (Helvetica, Times…) and a point size (int or float).
+	
+	Note that there are some fonts in Gobject that only work on specific operating systems (like the London font only works on Macs), so try to use the standard ones like Times, Courier…
+	
+	• There are new mentions of methods with GraphicsProgram mentioned here that I should note for writing my programs:
+		○ getWidth()
+			§ Can be used on a Gobject to get width of the object, or if no receiver called, the receiver is the GraphicsProgram itself
+		○ getHeight()
+			§ Same as above
+
+5.3 Writing your own methods
+	• Library methods are great to use until they do not do everything you need as a programmer
+		○ Then you write your own methods
+	• Method definitions in Java:
+	`visibility type name(parameters) {body}`
+		○ Visibility is public or private
+		○ Type is the return type
+			§ void if no return
+		○ Name can be anything
+		○ Parameters can be anything
+Predicite methods
+	• Methods that return booleans are specifically called 'predicite methods'
+	• Note that the truth of strings cannot be evaluated with just an ==, you must call the .equals(string) method:
+	`if (answer.equals("yes")){};`
+	• Predicite methods are helpful so you can do this:
+	`if(isLeapYear(year)) {};`
+	Instead of:
+	`if (isLeapYear(year) == true);`
+	
+	The first saves a lot of space, and isn't redunant.
+	
+5.4 Mechanics of the method-calling process
+	• Values of arguments are copied for use as parameters in a method, so they can technically be the same name as arguments and parameters
+		○ The types must be the same however
+	• The collection of variables in the method call is the 'stack frame'
+	• One common idiom is a combinations problem, where:
+		○ There are a select number of possible selections n
+		○ Number of n selected per round are k
+		○ This operation is so common in statistics that it has a name: combinations function
+		○ It has the notation 
+		(n)
+		(k)
+		○ Or
+		C(n, k)
+		Where the analytical solution is:
+		C(n,k) = n!/(k! * (n-k)!)
+	• In Java, here's a solution for this:
+	```
+	public void run() {
+		println(combinations(5, 3));
+	}
+	
+	private int factorial(int n) {
+		int result = 1;
+		for (int I = 1; I <= n; i++) {
+			result += I;
+		}
+		return result
+	}
+	
+	private int combinations(int n, int k) {
+		return factorial(n) / (factorial(k) * factorial(n - k));
+	}
+	``` 
+	• Computationally, when a program reaches a function call, it stores the address of the site to return the method value to, goes to the method code, executes the method code, and returns back to the program where the method was called
+		○ This location for returning the value of the method call is called the 'return address'
+
+5.5 Algorithmic methods
+	• Methods are common ways to write algorithms, or abstract strategies
+	• Brute force methods typically work, but are slow
+		○ It is a good idea to come up with a more clever analytical approach that saves computation time
+		○ However, it is imperative to prove that the clever approach is correct, since brute force methods are much easier in most cases to prove that they can provide a solution, just after a long time
+

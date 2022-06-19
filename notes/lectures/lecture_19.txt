@@ -1,0 +1,107 @@
+Lecture 19
+
+Next topic: Interface
+
+Remember the interface:
+	• Set of methods
+	• Common functionality among set of classes
+	• Lets you share methods between classes without needing to `extends` when doing so doesn't make sense
+
+Ex: Gfillable, is implemented in Grect but not Glabel
+
+To make a class that uses an interface:
+`public class className implements interfaceName`
+You can also implement and extend, just make that class definition longer.
+Similarly, you can implement and extend multiple times for a single class.
+
+Why are we talking about interfaces again?
+Map.
+Map is an interface in Java. What are the methods?
+	• Maps a key to a value
+Dictionaries are maps, where the keys are the words, the values are the definitions.
+(So the Map in Java is the Dict in Python)
+For Map, you look for key/value pairs by the key, not the value.
+A map is a general computer science concept, which is also called a 'dictionary'.
+Needed for assignment 6.
+Start assignment 5 now.
+
+In Java, we have class called a HashMap that implements Map.
+Know how to use a HashMap, not necessarily to make one. This is for CS106B.
+The method of storing is called hashing, that's why it's called a HashMap.
+
+A HashMap is a template. There are two types in the template:
+	• Type for the keys
+	• Type for the values
+HashMap Declaration:
+`HashMap<typeForKey, typeForValue> hashmapName = new HashMap<typeForKey, typeForValue>();`
+
+The types in the HashMap must be an object, not a primitive type. So if you wish to store a primitive value, you must use a wrapper class.
+Ex: `HashMap<String, Integer> myMap = new HashMap<String, Integer>();`
+
+Note that this syntax is also correct:
+`Map<String, Integer> myMap = new HashMap<String, Integer>();`
+Since you are declaring a Map, it is okay to store a HashMap as the value.
+You can use Map in the variable name declaration, but the constructor must be for HashMap.
+
+Important methods for HashMaps:
+	• put(key, value)
+		○ Adds key/value pair to the HashMap
+	• get(key)
+		○ Returns the value for the given key
+		○ If key does not exist, returns null
+	• remove(key)
+		○ Removes the key/value pair from the map
+		○ If not key, nothing happens
+	• containskey(key)
+		○ Returns boolean of if the map contains the key
+	• size()
+		○ Returns integer of how many key/value pairs are in the map
+
+If you put a value into the HashMap that is a primitive value and you made the class with the wrapper class, the value automatically gets wrapped.
+
+Keys are case sensitvie in Maps.
+
+The Map has no order, so you can't call key/value pairs by index. The index doesn't exist.
+
+This talk if Maps is part of a bigger framework: the Collection Hierarchy
+	• ArrayLists are in this Collection hierarchy
+	• This, among others, all implement the Collection interface
+	• They all share a common set of methods defined in the Collection interface
+
+Similarly, HashMap implements the Map hierarchy
+	• There's also a TreeMap that implements the Map
+	• So all Map methods are shared between HashMap and TreeMap
+
+It's important to know of this, since we can know a shared set of methods in a Map/Collection based class since we know the main interface. If someone writes some new Map class, we'll already know it at least has the put, get, and remove methods.
+
+Now back to the Collection hierarchy: Iterator
+The Iterator:
+	• List through a set of values
+	• This is an ArrayList (implements the Collection)
+	• Is the same type of the list of values that it iterates over
+
+Say we want to go through all elements in an ArrayList without a for loop.
+Ex:
+```
+ArrayList<String> names = new ArrayList<String>();
+Iterator<String> it = names.iterator();
+while (it.hasNext()) {
+	println(it.next());
+}
+```
+
+Iterators are useful since you can iterate over a HashMap. This is important because you cannot use a for loop to iterate over a HashMap; it has no indicies. To make the iterator, you need to have a list of the number of key/value pairs. The method keyset() does this.
+Ex:
+```
+myMap.keyset().iterator();
+```
+
+The funny thing is that the iteration of the HashMap can be in any order.
+
+Iterators were used so much that a new for loop was made:
+```
+for (type name: mapName.keyset()) {
+	println(name);
+}
+```
+This says name will be each value stored in the object. This makes an iterator and uses it immediately. Called the 'for each' expression.

@@ -1,0 +1,97 @@
+Lecture 14
+
+Today we are learning about computer architecture, with memory in particular.
+
+The most basic unit of memory is a bit (binary digit).
+	• This is a 0 or 1
+	• Transistors can store this
+
+bit = 0 or 1 (binary digit)
+byte = 8 bits
+	• Can store 0-255
+word = size of an integer in a language
+	• For Java, is 4 bytes
+	• Not used often, but is a term
+kilobyte = 1024 (2^10, which is binary)
+mb = 1024 kb
+gb = 1024 mb
+tb = 1024 gb
+pb = 1024 tb
+exabyte = 1024 petabyte
+zettabyte = 1024 exabyte
+yottabyte = 1024 zettabyte
+
+Hexadecimal = base 16 numbers
+	• 2B = 43
+	• Because you use numbers for 0-9 and A-F to 15
+Memory is stored in hexadecimal
+
+Memory is a series of cells, where each cell is 1 byte.
+Each cell has an address. The address is noted with some numerical address in hexadecimal.
+	• So you have some addresses A000, A001, A002… FFFF
+		○ The first one is 0000
+Locations of memory can store values, and those locations have an address.
+
+There'sthree relevant uses of memory we use:
+	• Static variables and constants (special)
+		○ Don't need to be in easily accessible memory location since they don't change
+	• Dynamic variables, stored in the HEAP
+		○ 'new Object' type variables are stored here
+		○ Objects have some overhead of memory allocated to account for methods and class definitions
+		○ These are stored in the HEAP
+		○ HEAP has garbage collection so it can be reused
+	• Local variables and parameters, stored in the Stack
+		○ When variables go out of scope, the stack frees the memory
+Java automatically manages memory.
+	• No need to allocate and free memory
+
+Memory architecture:
+Address	Memory Location
+1000 - 2000	Static/Special
+2000 - downward	Heap
+large - upward	stack
+
+The heap grows downward as you use it. The stack goes up as it grows.
+They can meet and overwrite each other, which causes a crash.
+
+Different kinds of variables take up different amounts of space.
+For the stack:
+Type	Memory
+int	4 bytes
+char	2 bytes (or 4 bytes if Unicode)
+
+When a method is run, the parameters and local variables are first allocated in memory.
+When you declare a variable as an Object, the variable's value is the ADDRESS of the object start in heap.
+
+So, in programs, classes are stored in heap, and variables to store the classes store the starting address of the class.
+`Goval p1 = new Goval(x, y)`
+	• Say Goval is stored starting at 1000 address
+	• p1 is stored at FFFC for example, and its value is 1000
+`Goval p2 = new Goval(x, y)`
+	• p2 is stored at FFFB for example, and its value is 100C`
+So object instances have pointers stored in the stack, and the object has its methods and properties stored in heap.
+Each time you create a variable, it adds the entirety of the class' data in the heap.
+
+When you call a method, it makes a 'stack frame'.
+	• All objects and variables used in the method (including copies of the parameters) are allocated in the stack
+		○ There is a special variable allocated in the stack, 'this', which is a pointer to the object's (who owns the method) location in the heap
+	• When the method is done, the stack frame is cleared, and the object (who had the method call) has its values modified in the heap as necessary
+		○ This is called 'popping off the stack'
+
+Now say we declare an object that is made up of two other objects.
+	• Stack, obj = address in heap for start of the Object
+	• Heap
+		○ Overhead for Object and variables for subObject1 and subObject2, which store the pointers for the subObjects
+		○ Then the heap continues to allocate memory for the subObjects
+
+So in short, I thought pointers made no sense to use when I was using C, but here I see their purpose.
+`Goval myObj = new Goval();`
+	• New memory in heap allocated for a Goval class
+	• myObj is stored in the stack, and the value is a pointer to the memory allocated for the Goval class
+And classes in heap that store subclasses store pointers to further classes allocated in heap.
+
+Similarly, the reason you cannot say
+`myObj1 == myObj2`
+is because what is compared is if they store the same value, which is a POINTER. They will only be equal if they are the same object (same pointer).
+
+

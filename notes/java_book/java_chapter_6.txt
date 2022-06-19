@@ -1,0 +1,165 @@
+Java Chapter 6
+
+Java Chapter 6: Objects and Classes
+
+6.1 Using the RandomGenerator Class
+	• So far we have been making deterministic programs, which use predictable IO
+	• Nondeteministic programs can behave randomly, which is commonly implemented with random numbers
+		○ Truly random numbers have to come from a real world source like nuclear emission noise, or atmospheric noise
+		○ In computers, we use pseudorandom number generators, since they at least seem random
+Pseudorandom numbers
+	• Pseudorandom number generators use algorithms to produce numbers that behave like random numbers and are difficult to predict by a human
+		○ They can be nonrandom if you input the same seed, but more on that later
+	• We'll use the acm.util RandomGenerator class, which can be seen as a black box that outputs a pseudorandom number when generated
+	• The RandomGenerator has many useful public methods, which can be called with a message after making an new instance of the class
+
+The role of the random number seed
+	• The RandomGenerator class outputs pseudorandom numbers by calling 'nextType()' where type is int, float, color, boolean…
+		○ Notice it is NEXT, so this hints that the generator does produce the values in sequence from a starting point
+		○ This starting point is called the 'seed'
+		○ On the inside of the object, it takes the seed, applies some mathematical function to the seed, and outputs the generated return value. This value is also assigned to the seed variable, so the next output is based on the most recent output
+	• Given the role and use of the seed, you can in fact generate the same pseudorandom number if you assign any instance of this class the same seed
+		○ The sequence of numbers from the instance will always be the same for a given seed
+
+Clients and implementors
+	• Programmers who write the class are the 'implementor'
+	• Programmers who use the class are the 'clients'
+	• 'Users' are those who use the classes in programs
+	• Implementors have a responsibility to not necessarily document the entire details of a method they implemnt, but they do have a responsibility to do at least the following in documentation:
+		○ Name the method
+		○ List arguments and their types
+		○ Indicate the return type
+		○ Describe the method in abstract terms, in human language not code
+			§ The first three are in the method header, the last is typically in the comments within the method definition
+
+The javadoc documentation system
+	• The javadoc is an automatic tool that documents classes into web-based documentation, and is included as part of the Java Development Kit
+		○ It reads code on package creation to make class documentation
+	• If you look at the Javadoc for the acm.util RandomGenerator class, you'll see that it's a subclass of the java.util Random class
+		○ Many classes in Java are extensions of stock Java classes
+		○ This hierarchy is called 'layered abstraction': addition of functionality in each subclass
+
+6.2 Defining your own classes
+	• General format:
+	```
+	public class name extends superclass {
+		class body
+	}
+	```
+	• Every public class definition should be kept in its own file names className.java
+	• If the 'extends' part is missing, the class is a superclass of the Object class in java.lang, which is the root of all Java objects
+	• New classes should contain:
+		○ Methods
+		○ Contants
+		○ Instance variables
+		○ Constructor
+			§ Only needed if class needs to be initialized in a new instance
+			§ Has the same name as the class
+			§ No return type
+	• Note that comments so far have been in the form of:
+	```
+	/*
+	* Note
+	*/
+	```
+	Comments that are automatically included in the javadoc have two stars at the first line
+	```
+	/** 
+	* Class definition
+	*/
+	```
+	`/** A comment on a method for the javadoc */
+
+	• Example class definition for a stoplight:
+```
+import java.awt.*
+/**
+*This is a stopligt class that can be green, yellow, or red.
+*/
+public class Stoplight {
+	
+	/** Constant for color green */
+	public static final Color GREEN = Color.GREEN;
+	/** Constant for color yellow */
+	public static final Color YELLOW = Color.YELLOW;
+	/** Constant for color red */
+	public static final Color RED = Color.RED;
+	
+	/**
+	*Constructor as green
+	*/
+	public Stoplight() {
+		state = GREEN;
+	}
+	
+	/**
+	*Returns current state
+	*@return the state of the light
+	*/
+	public Color getState() {
+		return state;
+	}
+	
+	/**
+	*Advances color
+	*/
+	public void advance() {
+		if (state == RED) {
+			state = GREEN;
+		} else if (state == YELLOW) {
+			state = RED;
+		} else if (state == GREEN) {
+			state = YELLOW;
+		}
+	
+	/* Private instance variable */
+	private Color state;
+}
+```
+
+	• The constructor is only necessary if the goal is to initialize the class instance with a value for some state variable
+
+The message-passing model
+	• You pass messages to the instances of the class to change its state
+
+Maintaining conceptual separation between the client and the implementation
+	• In the stoplight example, the 'state' variable was private
+		○ This was because it was not needed for a programmer to have acces to the state variable
+		○ This gives the implementor freedom to change the implementation of the class
+			§ Such as changing the state variable to an integer rather than Color
+			§ Can change other methods to reflect this data type change, without changing how a client would use the class
+			§ A client would never tell the differece of the implementor changes, and this is ideal
+			§ If implementors change things that are noticable to the client, the clients may get upset, and this is against good custodialship of the packages
+	• Note that all instance variables in the ACM libraries are private
+	• It is good programming practice to make only private instance variables
+
+6.3 Defining a class to represent rational numbers
+	• rational numbers are values that can be represented as the quotient of two integers
+		○ So, fractions
+	• The book goes over a class definition of rational numbers because if you run the following in Java:
+	(1/2) + (1/3) + (1/6)
+	It returns 0.99999999999
+	This is technially correct, but a rational human being would do rational number math and get 1 as a result.
+	The book defines a class do do this, and notes operations of fraction addition, subtraction, multiplication, and division implemented as methods.
+	• Note that if you define a class for a number, you cannot use the + - / * operators on them, you must define methods add(), subtract(), and so on to do math with the new classes
+
+	• The class definition for this Rational numbe class includes two constructors, which is valid Java:
+		○ One constructor where the are no arguments
+		○ Second constructor where one argument is taken in
+		○ This is valid since the instance can be constructed with two different methods
+	• Note that 'this' in Java means the current object
+	• The tags in double ** comments map to sections in javadoc for method definitions
+		○ @param
+			§ Notes parameters for the definition
+		○ @return
+			§ Notes return type and value
+	• The class definition makes good use of private instance variabes, so that the user cannot use 0 as a denominator, and always outputs the simplest (reduced) fraction at the end
+	• Properties that are guaranteed to be true throughout the body of code are called 'invariants'
+		○ These guard against clients from accidentally changing them or maliciously changing them
+		○ Say if 'denominator' variable was public, clients could assign it 0 and break the class unintentionally (or intentionally)
+	• Similarly, classes where the state cannot be changed ate called 'immutable'
+		○ These are classes where the state instance variables cannot be changed by the client wven with method calls
+		○ This is extremely useful
+
+Now watch lecture 9 and work on Assignment 2 with the new knowledge of javadoc and good software engineering practices of private instance variables.
+		

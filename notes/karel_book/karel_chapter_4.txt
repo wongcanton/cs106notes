@@ -1,0 +1,45 @@
+Karel Chapter 4
+
+Karel Chapter 4: Stepwise Refinement
+
+At it's core, programming is the art of solving problems with a computer. However, it is also the art of reducing complex problems into manageable ones.
+
+Programming increasingly became less of a science problem and more of an engineering one the more we understood and found that engineering principles needed to be applied to solve the problems. In many cases, software is large and complex, and it is written by many people. Thus, it is improtant for people to develop a set of common practices to enable collaboration and maintainability.
+
+This set of programming methodologies are called 'software engineering'. These methodologies make the software easier to ready and understand, but also make it easier to write the problems in the first place. One of the most important methodological advances in software engineering is 'top-down design' or 'stepwise refinement'.
+	• This is the breaking of large problems down into smaller ones and solving those individually (and breaking those down as necessary)
+	
+The principle of top-down design
+	• The first step is to outline the solution program in the most abstract of steps
+	• Then for each of these abstract steps, refine them until they are achievable solutions with code
+	• Solve each problem as possible
+		○ Be sure to avoid common bugs such as the fencepost error
+
+In the example of collecting beeper towers and relating them to the pothole filling problem:
+	• The solution that prevents the fencepost error is the following:
+```
+while (frontIsClear()) {
+	performAction();
+	move();
+}
+performAction();
+```
+
+This prevents the case where front is clear but still needs action done, where this solution leaves the final 'post' not made:
+```
+while (frontIsClear()) {
+	performAction();
+	move();
+}
+```
+
+There are plenty of reusable strategies like this solution to the fencepost error that come up all the time. Knowing these 'programming idioms' or 'patterns' and how to solve them makes it easier to fix them when they come up. It can be a goal to know how to resolve as many of these programming idioms as possible.
+
+
+Preconditions and postconditions:
+	• When writing a method, it is importand to consider the conditions that must be true before method execution and after
+		○ Say for a method collectOneBeeperTower() to work, Karel must be next to a tower, and after there must be no tower and Karel must be in the initial start position
+		○ These 'precondition's and 'postcondition's are important to note when writing a method
+		○ If you don't write the method to satisfy where it is only run if the precondition is met, and if it doesn’t end where the postcondition is met, you'll find that the method can mess things up
+	• In general, make very clear definitions of the preconditions and postconditions before writing a method
+		○ For example, make sure that a function that changes directories only runs when the precondition directory is usable, and the postcondition directory is one that is useful in the program

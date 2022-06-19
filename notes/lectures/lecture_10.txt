@@ -1,0 +1,80 @@
+Lecture 10
+
+Revisiting of Classes:
+	• Class variables have `final`
+	• Instance variables do not have `final`
+	• To allow clients to access private variables in a class, make a getter method (getName) that returns the value of the private variable
+		○ This prevents people from changing the variable value
+	• Setters (setName) let a client set a value for a private variable
+		○ This is opposed to making the variable public, and letting people know how the values are stored
+	• ALL CLASSES THAT ARE NOT PROGRAMS NEED THE toString() METHOD THAT OUTPUTS AT LEAST PUBLIC VARIABLES
+		○ For this class, CS106A
+
+Extending a class
+```
+public class freshman extends student {
+	public freshman(String name, int id) {
+		super(name, id) //This calls the superclass's constructor
+	}
+}
+```
+	• super(args) calls the constructor for a class' superclass
+		○ This is reserved and exists for all subclasses
+	• subclasses can override methods if they are the same method and have the same parameters
+	• Extending classes do not give the subclasses access to the superclass private variables
+		○ You need to call the getter from the superclass
+
+This class is mainly going over the acm.graphics package
+
+acm.graphics
+	• collage model
+		○ Create object and add them to the collage
+		○ Newer objects can be put on top of older objects
+			§ This is the stacking order (or z order)
+
+GCanvas
+	• This is used to represent the background of the collage
+	• Automatically made and added to a GraphicsProgram window
+	• So  when you call add(), you call to the GCanvas 
+		○ It is forwarded to the GCanvas object
+	• Forwarding is when the receiver of a message then calls another object with the same method
+	• So add(), among others, in GraphicsProgram forward to GCanvas 
+
+GraphicsProgram can do the following:
+	• pause(milliseconds)
+		○ Pauses for some milliseconds
+	• waitForClick()
+		○ Suspends the program until someone clicks in the window
+These will be helpful for writing games later in the class.
+
+GObject
+	• Has many methods that are inherited for all subclasses
+		○ setLocation(x, y)
+		○ getX()
+		○ getY()
+		○ getWidth()
+		○ and more
+			§ sendBackward()
+			§ sendForward()
+			§ To adjust the z order
+
+Interfaces
+	• Set of classes that have some set of methods common between two objects, where the objects are not in a class hierarchy with each other
+	• In GraphicsProgram, some are: GFillable, GResizable, GScalable
+
+GLabel 
+	• Baseline is a line that goes through the bottom of the text (the serif position)
+		○ Most characters go above the baseline, some go below like q
+	• Origin is the point on the baseline where the label begins
+	• The height (as in getHeight) is the distance between successive baselines
+	• ascent is the distance the characters rise above the baseline
+	• descent is the distance the characters drop below the baseline
+So getting size of a label, use ascent not height.
+
+GArc
+	• Shape of an arc, formed by a section of an oval
+	• Give some coordinates for size of a rectangle
+		○ start angle = angle where arc begins in degrees
+		○ sweep angle = how far the arc extends, in degrees
+			§ Negative values go in the clockwise direction
+	• If you set a filled GArc, you get a filled triangle with a curved hypotenuse

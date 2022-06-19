@@ -1,0 +1,180 @@
+Java Chapter 8
+
+Chapter 8: Object-Oriented Graphics
+
+This chapter focuses on the acm.graphics package to show the contents of the package and how to use it, but also serves as a dicsussion on how the package was designed. By learning how it was designed, and futher learning about how other packages are designed in the future, will help inform me on good package design practices.
+
+8.1 The acm.graphics model
+The package was made from a 'model', where a model for packages is a mental picture of what the package is supposed to represent.
+
+The collage metaphor
+The acm.graphics package is based on a model of a 'collage', where the collage is a canvas and shapes are tacked on to the collage. This is opposed to a canvas, where a painter would add lines and make objects that way. Here, the fundamental model is tacking objects onto a collage, or a board. Think of this as a cork board, and we tack objects to it. This is the acm.graphics model.
+
+The coordinate system
+The acm.graphics package uses coordinates in pixels to specify object positions. The origin of the collage is 0,0, which is the top left corner of the window for a program. X increases rightward, and Y increases downward. This system is common to the official Java model for graphics.
+
+8.2 The graphics class hierarchy
+The primary objects are Gcanvas (the collage), and Gobject (objects to be added to the canvas). All shapes derive from the Gobject superclass.
+
+The Gobject class
+Gobject is actually an 'abstract class', which are classes that do not have objects associated with them but serve as templates for subclasses. For this reason, you cannot make a new Gobject on its own.
+`Gobject gobj = new Gobject();` This is not valid.
+But you can make a subclass of type Gobject.
+`Gobject gobj = new Goval(0, 0);` valid
+The Gobject class serves as a template, and has many methods and properties defined to be used by all subclasses, such as setVisible(), getX(), and getY().
+It does not contain setFilled(), which is commmon to some objects (Grect Goval) but not all (Glabel). In this case, there is an interface to implement the setFilled method, so objects can be derived from it (and not have setFilled defined for each object).
+	• An interface is a listing of method headers that all classes that implement the interface share
+		○ So an interface is like a class, but serves to house only methods
+
+So:
+	• Interface = class that just houses methods
+	• Abstract class = class that houses methods and properties, but is not an object so it has no constructor
+
+The Glabel class
+Glabel has a 'baseline' which is an imaginary line from the origin across the bottom of the text; this represents a line that is on plane with the serif. With Glabel, you can set fonts.
+
+The Grect class and its subclasses (GRoundRect and G3DRect)
+	• Is a Gobject
+	• Implements Gfillable, Gresizable, and Gscalable
+GRoundRect has rounded corners, G3DRect has a z plane.
+
+The Goval class
+Origin is top left corner. Size is defined by containing the object in a rectangle of length and width.
+
+The Gline class
+	• Implements Gscalable
+	• Has set methods for start and end point
+New Glines are constructed with a start and end point. Note that in geometry, lines are infinitely thin so the Y coordinates of a line must be on line. But in graphics this doesn't make sense because you would never see a line in that way, so Glines have a constant LINE_TOLERANCE that is 1.5 pixels.
+	• Thus Glines are 1.5 pixels wide, and points contained within that tolerance are 'inside' the object
+
+The Garc class
+The Garc class is similar to Goval: it is defined starting with a rectangle of some width and height. But it then takes two arguments: start, sweep.
+	• start is the number in degrees to start an angle, where 0 is at the middle of the right side of the rectangle
+	• sweep is the number in degrees to make the angle from the start
+	• So in the end, the arc looks like an arc'ed hypotenuse of a triangle
+You can set the arc as filled with setFilled(true), which makes the whole arc filled to look like wedge.
+	• If you check whether a point is within the arc with `contains`:
+		○ If filled, contains is true if within the wedge
+		○ If not filled, contains returns true if and only if the point is on the line of the arc (1.5 pixel tolerance)
+
+The Gimage class
+	• Implements Gresizable and Gscalable, NOT Gfillabe
+Argument is a filename to a JPEG or a GIF: `new Gimage("pickle_image.jpg")
+
+The Gpolygon class
+The Gpolygon is constructed starting with an origin, where the origin is the center of the polygon. From there, at least one vertex must be added with coordinate positions from the origin passed to obj.addVertex(x, y). Then, the object can be drawn in two ways:
+	• obj.addVertex for all verticies, then the Gpolygon automatically draws edges between the verticies, including the last one and the first vertex
+	• obj.addEdge for all edges, then it automatically adds the last edge from the last edge to the first vertex
+		○ This can also be done with addPolarEdge to pass (side, angle) arguments for polar addition using angles in degrees
+Note that it implements:
+	• Gfillabe, Gscalable, Gresizable
+
+8.3 Facilities available in the GraphicsProgram class
+The Gcanvas has some useful methods:
+	• add(object)
+	• remove(object)
+	• getElementAt()
+	• getWidth()
+		○ Of entire canvas
+	• getHeight
+		○ Of entire canvas
+For getElementAt(), it returns a Gobject such that the coordinate passed is within the object. This lets you select which (frontmost) object is at the coordinate.
+`Gobject objHere = getElementAt(x, y);`
+
+8.4 Animation and interactivity
+	• animation = process of updating a displayed image over time
+
+Time-based animation
+Since the computer is so fast, it is generally difficult to see changes in images if there is no pause between changes. This, the `pause()` method allows you to pause the canvas for some milliseconds between changes. This lets a user actually see changes as long as you make the pause long enough.
+Here is an idiom in GraphicsProgram for time-based animation of some object:
+```
+public void run() {
+	initalize object;
+	while (as long as animation should be run) {
+		update object;
+		pause(delay time);
+	}
+}
+```
+
+Responding to mouse events
+ConsolePrograms are 'synchronous' in that they interact with the user in sync with program execution. Many modern applications follow an 'asynchronous' format, where it is not known when a user will do some action, but there needs to be a response to when that action is perfomed by the user.
+In programming, the user action is called an 'event', and an object that handles the event is called the 'listener'.
+	• 'listeners' respond to triggers, which are 'events'
+Java has mouse listeners named MouseListener (for clicks) and MouseMotionListener by default in the package java.awt.event. GraphicsProgram implements these, but the listeners are empty by default so they don't respond. To listen to mouse events in GraphicsProgram, we need to declare a mouseListener, and make a method to respond to the mouse events.
+	• Also be sure to `import java.awt.event.*;`
+In GraphicsProgram, we only use mouse positions and clicks, although the Java Mouse objects can handle a lot more than that.
+
+Dragging objects on the canvas 
+The idiom is typically this:
+```
+addMouseListeners();
+
+method for if click, send object to front;
+
+method for setting instance variable for object as object at click;
+
+method for moving object to last mouse position before unclick (MouseEvent e){
+	if object not null:
+		object.move(e.getX() - lastX, e.getY() - lastY);
+		lastX = e.getX();
+		lastY = e.getY();
+}
+```
+See example in book as needed, but that's the general pseudocode format.
+
+A simple drawing program
+The book goes over an example for having a user draw a rectangle such that:
+	• mousePressed is the intial position
+	• end of mouseDragged (so e.getX() and e.getY()) is the opposite corner of the intial position
+	• Whichever is the minimum of the intial or final position (to handle negative values), take the absolute value of the difference in X to be width and difference in Y to be height
+	• Add Grect at end of mousePressed
+
+8.5 Creating compound objects
+Gcompound is a class that allows you to mesh multiple Gobjects together into one object. Say for example you want an object for a face that is a big oval, two oval eyes, triangle nose (Gpolygon), and rectangle mouth: you can add all these together to one class that is Gface which extends Gcompound.
+The Gcompound has all objects added in reference to an origin, which is 0, 0 for the object and is the top left corner. 
+To make the class, include a 'constructor' which defines how to make the object. This has no return type:
+```
+public class Gface extends Gcompound{
+
+	methods to make the shapes and return them;
+	instance variables for the shapes;
+
+	public Gface(double width, double height) {
+		make shapes;
+		add(shapes);
+	}
+}
+```
+Constructors make the object when called, and have no return type. They are of the same name as the object, and are always public. Practice making constructors in my classes to make them well.
+
+8.6 Principles of good object-oriented design
+When defining any method, class, or package, it's imperative to consider design strategy. More often than not, programming includes working with others, so you must design your components such that they are useful to other programmers. 
+
+There should be balance between fulfilling the needs of both the client and the implementor. When designing anything, follow these principles for good design:
+	• Unified = the abstraction is consistent with a theme
+	• Simple = class/method/package should be simple to use especially if the implementation is complex
+	• Sufficient = include sufficient functionality to methods/classes/packages because if you are missing anything, a client will abandon your implementation and make their own
+	• General = meet the needs of many different clients. If too specific, nobody will use it
+	• Stable = produce the same structure and effect regardless of use, even as you grow and add new functionality. Clients depend on the method/class/package, so if you rewrite something do no drop components that are already being used by clients
+
+Each section will now be discussed. These principles work for methods, classes, and packages, so a mention of one is a mention for all.
+
+The importance of a unifiying theme
+Make components for classes/packages fit a theme, it would be odd and detrimental to include a class for a oval graphic in a 'Math' package; it doesn't fit the theme. Similarly, be consistent in how the classes/methods work: don't change one graphic in a package to use units of centimeters when the rest use pixels. Users will forget this and abandon your package if it's too difficult to rememeber what works when.
+	• Include things that are in the theme and no more
+	• Keep things consistent
+
+Simplicity and the principle of information hiding
+In general, only provide information to the client on a need to know basis, and reduce the amount of information as much as possible. Clients are concerned with how to use the class, not with how it was implemented. In fact, in many cases flooding javadoc documentation with implementation strategy and design can deter a client. It's useful to think of an 'abstraction boundary' with the client, and keep all the details to yourself except what the client must know.
+	• Make as few public methods as are necessary for use, and reduce arguments and special cases as possible
+	• Only reveal as much information in documentation as is necessary for a client to use the class, not understand how it was implemented
+
+Meeting the needs of your clients
+Make classes simple to use but not so simple that they do nothing useful. There is a fine line between sufficient functionality and complexity, so it is a fundamental challenge to strike that balance.
+
+The advantages of general tools
+Make classes more general than specific, so more users can use them for more cases. Otherwise it makes no sense to use the class if it only works in one specific case for one specific application.
+
+The value of stability
+Clients will depend on your classes, so make sure any changes to them do not change the clients' usage of them. If you find a more clever way to implement some class or method, by all means do so, only if the output remains the same as before. If you require the client to refactor their project because you renamed a method or output a differnet data type, their work will be devastated and they may not use your work again.

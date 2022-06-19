@@ -1,0 +1,165 @@
+Lecture 6
+
+Getting input from the user:
+	• readInt("str")
+	• readDouble("str")
+
+Division has some interesting behaviors:
+	• int/int gives only an integer, remainder is removed
+	• (int or double) / (int or double), real division'
+		○ If one is a double
+
+Ex where this is important
+```
+int x = 5;
+double y = x / 2;
+	This returns 2.0 since the x and 2 are ints.
+```
+
+Side note: I ran this here: repl.it - Java
+I made my own helloWorld.java in /testing/ to show the bare minimum of a java program for use in the terminal without a package dependency. It requires a lot to run, so no wonder Stanford made the acm package to make it more simple.
+
+
+Order of expressions:
+	1. ()
+	2. *,/,% (from left to right)
+	3. +,-
+So essentially pemdas.
+
+Ex:
+x = 1+3*5/2
+	x = 1 + 15/2
+	x = 1 + 7
+	x = 8
+	
+Sometimes it makes more sense to use parentheses if you want things in a specific order.
+There are no native exponents, but there are libraries to help with this.
+
+
+On division again:
+	• To make operations work as intended type, use 'Cast'
+Ex:
+```
+int x = 5;
+double y = (double)x / 2;
+	This returns 2.5
+```
+
+This Cast does not change the type of the variable, it just changes it for an operation.
+Note that the type is put in () before the variable, not like in python: int(x)
+
+This ordering is very important to know, and how division of different variable types gives different outputs.
+
+readInt and readDouble does to error checking (I believe).
+
+Common arithmatic shortcuts:
+	• x = x + 1; 
+		○ This is the same as x += 1;
+		○ This is the same as x++;
+		○ Apparently the x++ came first in C++
+	• x = x - 1;
+		○ x -= 1;
+		○ x--;
+	• x = x * 2;
+		○ x *= 2;
+	• x = x / 2
+		○ x /= 2;
+
+Constants
+	• Say you want to make a variable that should not be changed.
+	```
+	double pi = 3.14;
+	```
+	• If you never change the value it can work, but it's also useful to not make that possible
+	• To force variables to be constant:
+	```
+	private static final double varName = value;
+	```
+	This makes a private variable, makes it used in the entire class, and unchangeable.
+	• Constants allow you to use the same declaration for the entire program
+	• It's good practice to do this to prevent other programmers and users from reassigning values
+
+I'm slightly confused on what 'static' does, so read more
+
+Booleans and logic
+	• Booleans made by George Bool
+	• Values are true or false, so you can use relational operations to return the value
+Ex:
+```
+boolean p;
+p = (3 > 5);
+	P is false
+```
+	• ! means 'NOT'
+	• && means 'AND'
+	• || means 'OR'
+	• `x || y` means true if either or both are true
+
+Short Circuit Evaluation
+	• In boolean tests, only the first expression is evaluated if the first test is enough for the assignment
+Ex:
+```
+p = (5 > 3) || (4 <= 2);
+v = (x != 0) && ( (y / x) == 0);
+```
+The second test is not done for the first test in P and in V if x is not 0. This is an optimization behavior in Java and can be used to guard against impossible operations that break the program (like dividing by 0 in the second case).
+
+
+Statement Blocks
+	• A Compound statement (or Block) is a set of statements in {}
+	• Variables have scope (which can be seen as the lifetime of the variable)
+	• Variables only exist through their scope, so it's useful to contain variables in blocks when they are not needed for long
+	• `if` statements are done in blocks
+	```
+	if (condition) {
+		statements;
+	}
+	```
+	• You can ommit the braces if the statement is only one statement in the if block
+		○ But really just use them in all cases since it's easier to understand
+	• `if else` is the same
+	```
+	if (condition) {
+		statement;
+	} else {
+		statement;
+	}
+	```
+	• Cascading if:
+	```
+	if (condition 1) {
+		statement;
+	} else if (condition 2) {
+		statement;
+	} else {
+		statement;
+	}
+	```
+	• Switch statement:
+	```
+	switch (caseValue) {
+		case value:
+			statement;
+			break;
+		case value2:
+			statement;
+			break;
+		default:
+			statement;
+			break;
+	}
+	```
+		○ You must use `break` to end a case if you want to end to the last brace
+		○ Switches can always be made into if blocks, but they are important to know of
+	• for loops also use blocks
+	```
+	for (init; condition; step) {
+		statement;
+	}
+	```
+	• While is the same:
+	```
+	while (condition) {
+		statement;
+	}
+	```

@@ -1,0 +1,37 @@
+Lecture 13
+
+More work on Strings and characters today.
+
+Midterm goes up to lecture 14.
+	• Know the book as well that is in the reading list
+
+Next assignment is string processing.
+
+Note that str.substring without a second integer argument takes a slice from the index to the end of the string.
+
+
+Tokenizers
+	• Tokens are strings that are surrounded by whitespace
+	• "hello there, Josh" -> tokens are "hello", "there,", "Josh"
+
+So a string tokenizer splits a string by the whitespace characters.
+A string tokenizer is included in java.util.*
+The delimiters are space, tab, and newline.
+So tokenizers let you split strings based on a delimiters.
+
+
+Encryption
+	• One common method is the Caesar Cipher
+		○ Shift letters in a string by some number of letters in the alphabet
+		○ The number of letters to shift, n, is the 'key'
+	• 'plaintext' is the input of a ciper, and the encrypted message is called 'ciphertext'
+
+Standard string replacement idiom:
+```
+string result = "";
+for (int I = 0; I < str.length(); i++) {
+	char ch = str.charAt(i);
+	ch = changeCharMethod(ch);
+	result += ch;
+}
+```

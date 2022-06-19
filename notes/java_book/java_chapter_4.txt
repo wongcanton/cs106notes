@@ -1,0 +1,232 @@
+Java Chapter 4
+
+Java Chapter 4: Statement Forms
+
+There are two general types of statements:
+	• Simple statements
+		○ Perform some action
+	• Control statements
+		○ Affect how other statements are executed
+
+4.1 Simple statements
+	• A statement is an expression followed by a ;
+	• Block
+		○ Putting a sequence of statements into one unit between {} is called a block
+		○ These are also called compound statements
+
+4.2 Control statements
+	• Top down ordering of statements isnt always useful, so we can use control statements to redirect the flow of simple statement execution in programs
+	• There are two major types of control statements in Java:
+	1. Conditionals
+		a. Statements run if a conditional is true
+		b. Include `if` and `switch` statements
+	2. Iteration
+		a. Execute statements for a specific number of times
+		b. Include the `while` and `for` statements
+	• Control statements have two parts:
+		○ Control line
+			§ Includes the condition or defines the iteration
+		○ Body
+			§ Set of statements to execute
+	• It is possible and can be useful to include additional control statements within the body of another control statement; this is called 'nesting'
+
+4.3 Boolean data
+	• The data type where the domain is only 'true' or 'false' is Boolean data, or 'boolean' values
+	• There are two types of operators that work with boolean values: relational operators and logical operators
+	• Relational operators
+		○ Compare two values
+		○ >, <, <=, >=, ==, !=
+		○ Note that == is a comparison operator, while = is an assignment operator
+		○ Comparisons can only be done on 'atomic data' values, or data types that are not made of smaller components (to just not objects)
+			§ This means you cannot compare objects and strings
+	• Logical operators
+		○ !
+			§ NOT
+		○ &&
+			§ AND
+		○ ||
+			§ OR
+	• When doing logic in values it can be useful to make a 'truth table'
+	Ex: for conditions p and q that can be either true or false
+	Condition	p	q	!p	!q	p && q	p || q
+		true	false	false	true	false	true
+		false	true	true	false	false	true
+		false	false	true	true	false	false
+		true	true	false	false	true	true
+	
+	• It is common to mess up the true values when using the ! operator, so it is useful to keep 'De Morgan's Laws' in mind:
+	"!(p || q) is equivalent to !p && !q"
+	"!(p && q) is equivalent to !p || !q"
+	
+	So note that ! an expression of either && or || reverses && -> || and || -> &&
+	• Note that you cannot do `0 < x < 10` in Java, you must do
+	`0 < x && x < 10`
+	• Short circuit evaluation
+		○ Java doesn't evaluate the second expression in a &&/|| statement if the first expression's value is sufficient for the condition
+			§ This decision was made in Java to reduce computation time
+		○ This can be useful to prevent the evaluation of a computationally intensive statement such as `0 / 0`
+		○ Use this to your advantage, so you can guard against this. For example:
+		`(x != 0) && (y % x == 0)`
+		If it is 0, it prevents the evaluation of the second expression.
+	• Flags
+		○ Variables that are booleans are called 'flags'
+		○ This is a flag:
+		```
+		boolean done;
+		done  = true;
+		```
+		○ You can reduce redundancy of if else blocks by using flags.
+		○ For example, these two blocks achieve the same result:
+		Block 1:
+		`boolean done = (itemsRemaining == 0);`
+		Block 2:
+		```
+		if (itemsRemaining == 0) {
+			done = true;
+		} else {
+			done = false;
+		}
+		```
+		The first is more elegant and efficient. When using booleans, try to do the first block when possible.
+
+4.4 The if statement
+	• For one statement bodies, you can reduce if/else blocks to the following (no use of {}):
+	`if (condition) statement;`
+	`if (condition) statement else statement;
+	• Note that else blocks execute for the most recent if block
+		○ Getting these out of order is called a dangling else problem
+	• Cascading if: for multiple conditions:
+	```
+	if (condition) {
+		statement;
+	} else if (condition) {
+		statement;
+	} else {
+		statement;
+	}
+	```
+	• The ?: operator
+		○ This includes 3 operands
+I'VE SEEN THIS IN JAVASCRIPT SO PAY ATTENTION
+	`condition ? expression1 : expression2`
+		○ This operator is a way to compactly write an if else block
+	if/else block:
+	```
+	if (condition) {
+		statement1;
+	} else {
+		statement 2;
+	}
+	```
+		○ A useful use of this is when deciding whether to include 's' in a println statement:
+		`println(nItems + "item" + (nItems == 1 ? "" : "s") + " found.");`
+		
+4.5 The switch statement
+	• Decision trees that are more then two-way can be solved with a switch statement, which handles any number of cases
+	• It uses the following syntax:
+	```
+	switch (n) {
+	case n1:
+		statement;
+		break;
+	case n2:
+		statement;
+		break;
+	default:
+		statement;
+		break;
+	}
+	```
+	Where the (n) is the variable and the cases are different values for n.
+	Note that each case must have a break statement to get out of the switch.
+		○ It's not needed, since Java assumes a break, but it is good practice to keep the breaks for readability and no assumed breaks.
+		○ Also, if 'break' is not part of the cases, the default is ALWAYS EXECUTED
+	Also, the default is used for cases that are not defined for the value of n (the switch).
+	• Each case block is called a 'case clause'
+	• Note that cases back to back with no break are executed one after another:
+	```
+	case 1:
+	case 2:
+		statement;
+		break;
+	```
+	Here if case 1 is met, the case 2 is executed since case 1 has no break.
+	• It is good practice to use a default switch, especially since it may not be reasonable to assume that all cases are covered
+	• Cases at the point of writing can only be used for integer case values, not conditions
+		○ Conditions are only evaluated with if statements
+	• Switches aren't the most convienient, but they can be useful sometimes
+
+4.6 The concept of iteration
+	• Iteration lets you do things with many different versions of a variable without having to declare it so many times
+The repeat-N-times pattern
+	• A for loop can be used to repeat something for any N number of times
+	```
+	for (int I = 0; I < N; i++){
+		statements;
+	}
+	```
+	• It is useful for counting and summing to assign a variable in each iteration and make some total with it to be updated in each iteration:
+	```
+	int total = 0;
+	for (int I = 0; I < N; i++) {
+		int value = readInt("Enter some number: ");
+		total += value;
+	}
+	```
+		○ For this, it's important to initialize the total variable before the loop, that way it doesn't get declared in each iteration
+		○ Failure to initialize is a common source of bugs
+The run-until-sentinel pattern
+	• It is helpful to have a way to loop without knowing the number of times to iterate, hence the while loop with a sentinel that breaks the loop
+	```
+	while (true) {
+		statement;
+		if (value == sentinel) break;
+		statements;
+	}
+	```
+
+4.7 The while statement
+	• A while can be used to iterate any number of times until a condition is met
+	```
+	while (condition) {
+		statements;
+	}
+	```
+	• Note that the condition is evaluated in every iteration of the loop, including the first iteration
+	• The loop starts when the condition is false
+		○ It stops when it is evaluated, not necessarily if the condition becomes false halfway through a cycle 
+Loop and a half problem
+	• It's not always ideal to have the condition evaluated at the beginning of the cycle, so using the sentinel strategy can let you still execute some of the cycle if desired
+	• These prevent duplication of code, where the duplication lies in having a statement repeated before or after the while loop if the desired result is a loop in a half
+		○ The loop in a half solution with the sentinel is very valuable in this programming idiom
+4.8 The for statement
+	• Syntax for the for loop is as follows:
+	```
+	for (init; test; step) {
+		statements;
+	}
+	```
+	• The arguments are optional, but the semicolons are not:
+	`for (;;) {}`
+		○ This is simlar to the 
+		`while (true) {}` 
+		statement
+Floats in for loops
+	• Do not, under any circumstance, use floats as iterables
+	```
+	for (double x = 1.0; x <= 2.0; x += 0.1) {
+		println(x);
+	}
+	```
+	This doesn't actually work as it seems, where the output looks like this:
+	"""
+	1.0
+	1.1
+	1.200000000000000002
+	1.300000000000000003
+	1.400000000000000004
+	…
+	"""
+	Floats are not exact, and this is intentional but must be kept in mind when using floats.
+	So, don't use them in for loops.
+	

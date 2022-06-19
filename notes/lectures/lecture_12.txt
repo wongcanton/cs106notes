@@ -1,0 +1,70 @@
+Lecture 12
+
+Enumeration is the topic to start today.
+
+Enumeration is the representation of things with numbers.
+So some set of items that go together are represented with numbers.
+One strategy for this to assign numbers to variables and have them constants.
+
+Java 5.0 has enumerated types, not talked about yet.
+
+Now the topic is characters.
+
+Type char: a character.
+`char ch = 'a';
+USE SINGLE QUOTES, DOUBLE QUOTES IS A STRING
+	• Characters are represented in the computer as an enumeration of character codes
+
+ASCII and Unicode are character code sets to represent characters.
+	• These are enumerations of characters
+
+ASCII is in base 8, so octal.
+	• 'A' - 'Z', 'a' - 'z', and '0' - '9' are sequential in the ASCII and Unicode enumerations
+
+Escape characters work in Java
+Ex: \\, \', \", \n, \t
+
+There is no readChar, so you have to convert it.
+One strategy is to make a string, and read the chars.
+```
+String s = readline();
+char ch = S.charAt(0);
+println(ch);
+```
+
+Because of the character enumeration you can do math on it.
+Ex:
+```
+public char toLower(char ch) {
+	if (ch >= 'A' && ch <= 'Z') {
+		return ((ch - 'A') + 'a');
+	}
+	return ch;
+}
+```
+Calculates the position of ch from 'A', and adds to 'a' to be the same position after 'a'.
+
+Characters are primitive types so you can do the math.
+There is also a Character class, and you can call methods from it.
+	• Call the method with Character.toUpperCase() for example
+	• This is for the class, you cannot call on the char itself
+	`char ch = 'a';`
+	`char CH = Character.toUpperCase(ch);`
+
+
+Now for Strings.
+Strings are immutable.
+
+While characters are primitive types, strings are a class.
+This is helpful, since you can call string methods on themselves.
+`str = str.toUpperCase();`
+
+Strings can be empty and single characters, just use double quotes.
+`String str = "A";`
+
+Note that str.substring goes to before the second index given.
+`String str = "hello";`
+`s = str.substring(1, 3);`
+s -> "el"
+
+

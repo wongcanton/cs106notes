@@ -1,0 +1,141 @@
+Java Chapter 1
+
+1.1 A Brief history of computing
+	• The first powered (not mechanical) computing machines were Charles Babbage's Difference Engine and the Analytical Engine
+	• He didn't finish either: the difference engine was finished by someone in Sweden, and the Analytical Engine was finished by his wife, Augusta Ada Byron, who is the first programmer
+	• Ada actually wrote about most of Babbage's work documentation, so she played more of a part in some ways
+	• The Analytical Engine used punched cards to control computation
+	• The first large scale electonic computer was the ENIAC, which uses a 'patch panel' that required connecting wires to sockets to perform computations
+	• In 1946 Princton's Institute of Advanced Study proposed that programs and data could be represented in a similar way in memory. This concept simplified programming and is the basis for many modern computers. Because of this idea by John von Neumann, the concept is called and used as the 'von Neumann architecture'. 
+
+1.2 What is computer science?
+	• How to define computer science? With biological and chemical science it's clear we study how they work, but there's no such thing as 'car science', we call it 'automotive engineering' since they are manmade things. So why is computer science 'computer science'? And what does it mean?
+	• A computer is a machine, and it is built of hardware
+		○ The practice of this can be computer engineering
+	• To use a computer, it must be 'programmed', which is giving it a set of instructions (program) to solve a problem
+	• The programs are generally called software
+		○ Software and hardware togerther make computation possible
+	• Software is abstract and intangible, as opposed to hardware
+
+	• Computer science is in the domain of computer software, and includes problem solving
+	• Computer science is the science of problem solving where solutions involve a computer
+		○ Computation without computers is possible and was done for a long time
+		○ It's just cheaper and faster now to do with computers than pen and paper
+
+1.3 an overview of computer hardware
+	• Programming requires a lot of practice, and to start it's important to understand some about hardware
+	• Typical components of a computer are:
+		○ CPU
+		○ Memory
+		○ Secondary storage
+		○ IO devices
+		○ Network
+	• And each of these are are connected by a channel called a 'bus' which shares data between units
+	• CPU
+		○ Performs the computation from a sequence of instructions stored in memory
+		○ Modern computers have the CPU as in integrated circuit (silicon chip with millions of transistors)
+	• Memory
+		○ Storage used while programs are run, referred to as the primary storage
+		○ The programs and the data used in programs are stored in the memory, as per the von Neumann architecture
+		○ Today, memory is in the form of a chip called RAM
+	• Secondary storage
+		○ Data in memory is lost when a computer is turned off
+		○ Secondary storage can keep data since they don't require power
+		○ Most common form is disks, which can be hard disks, floppy disks, (and as of my time, solid state drives)
+	• IO devices
+		○ IO = input/output
+		○ Input is typically a keyboard, and the output is usally a monitor
+	• Network
+		○ Connection to the Internet
+
+1.4 Algorithms
+	• An algorithm is a strategy to solving a problem
+	• An algorithm must be:
+	1. Clearly and unambiguously defined
+	2. Effective, in the sense that its steps are executable
+	3. Finite, in the sense that it terminates after a bounded number of steps
+
+1.5 Stages in the programming process
+	• First decide on an algorithm or design an new one: perform algorithmic design
+	• Next express the algorithm in a programming language: code
+		○ This can be the more difficult part of the process
+	• New algorithms in the book are first expressed in English, then then Java
+Creating and editing programs
+	• Make a file
+		○ This includes a 'root name' and a file 'extension': myfile.java (myfile = root name, .java = extension)
+	• Changing the file is editing it
+The compilation process
+	• After making the file, we need to translate it to computer instructions to be executed
+	• Java, C, C++: these are higher-order languages
+		○ They are easier for humans to understand without having to understand what the hardware is doing
+	• This is opposed to machine language, like Assembly
+	• The classical approach is to use a 'compiler' to translate the progam into low level machine language
+		○ Each platform requires a separate compiler since the platforms (Mac vs Windows) have differnet instruction sets
+	• The second approach is to use an intermediate language that is independent of the platform
+		○ The programs run in a system called an 'interpreter' that execute the intermediate language on the machine
+		○ Pure interpreters do not translate to an intermediate language but directly implement the instructions
+	• Java uses a hybrid approach
+		○ The Java compiler translates the Java language to an intermediate language
+		○ The intermediate language is then interpreted by the Java Virtual Machine (JVM)
+			§ It does often compile pieces of the intermediate language to native machine code
+		○ At this time, 'Java can often achieve a level of efficiency that is unattainable with traditional interpreters'
+	• In classical compilation systems, the compiler translates the source code into a file called an 'object file' which has the actual native instructions
+		○ The object file is combined with other object files to make an 'executable file' that can be run
+		○ The typical 'other object files' are 'libraries' which are common native instructions for some operations
+		○ The process of bringing the compiled object file with the library files is called 'linking' into the executable file
+	• In Java, the intermediate files are 'class files', which are combined with other class files and libraries, and compressed, to make a file called a 'JAR archive'. This JAR file is used by the JVM to be run
+So JAR files are the 'executable' files for all intents and purposes on a system.
+Programming errors and debugging
+	• Compilation does serve another purpose: it gives errors in the case where a program does not follow syntax rules
+		○ These are called syntax errors
+	• A logical mistake in a program is called a bug
+		○ These are not syntax errors so the program compiles and runs
+		○ They are harder to find than syntax errors
+	• Getting rid of bugs is called debugging, and every programmer has to do it
+		○ They all make mistakes
+	• In general, a process of making an algorithm always includes getting it to work, then finding and fixing bugs until no more can be found
+	• Be sceptical of your own programs
+Software maintenance
+	• Code doesn't rust, but it does need maintenance:
+		○ Bugs still exist even after years of use
+		○ Bugs that were dormant break the program with large loads
+	• Maintenance also includes feature enhancements to the code, and making sure that the addition doesn't add bugs
+	• Program maintenance can be hard because many programmers don't write things to last forever
+		○ Once it works they typically quit
+	• The dicipline of writing maintainable programs that can be understood by others is called 'software engineering'
+	• This book teaches to write with good software engineering
+	• Try do consider this when writing programs:
+		○ Will it make sense?
+		○ Does the program indicate itself what it does?
+		○ Is it easy to change?
+	• There are no rules to good software engineering, it is a skill that comes with practice and adopting methods
+
+1.6 Java and the object oriented-paradigm
+	• At this time (2005), there is a paradigm shift in programming paradigms from procedural (procedures and functions that operate on data) and object-oriented (operations on data collected in objects)
+		○ Procedural languages include C, Fortran, and Pascal
+		○ Object-oriented languages include Smalltalk, C++, and Java
+	• The paradigms (including functional) are not in competition, and in fact using multiple to one apprach can be helpful
+	• It is imperative to master them all
+The history of object-oriented programming
+	• SIMULA was the first OOP language and many terms came from it
+		○ It was not popular at all
+	• Smalltalk came along to make programming more accessible, and it was OO. It was popular for teaching, not in industry yet
+	• C was industry standard, so when C++ came the industry finally started to use OOP
+The Java programming language
+	• The goal of Java was to make a language that could be run on microprocessors in consumer electronics, started in 1991
+		○ This was the goal, but the advent of the Internet changed its direction
+		○ In 1993 they changed Java development to include internet use
+	• Release in 1995 showed this focus on the internet was worth it
+		○ Java was popular in academics and industry
+	• It was made to look just like C++ but be simpler, so thay C++ programmers would easily transition
+	• There are no pointer, pointer arithmatic, and there is automatic garbage collection
+1.7 Java and the World Wide Web
+	• Documents that contain interactive links are called hypertext
+	• Websites are made of hypertext documents, and viewed with a browser
+	• To add a new document to the web:
+		○ Make a file with a web server program to share access to files on the server
+		○ Make web pages exportable files, usually html files
+		○ Identify pages with a url, a 'unifirm resource locator'
+	• Java made 'applets' which are programs that can be run in a network browser
+		○ Use the <applet> tag to include a java program in a html document
+	

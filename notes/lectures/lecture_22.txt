@@ -1,0 +1,57 @@
+Lecture 22
+
+Next Assignment: Namesurfer
+	• Shows decades in a GraphicsProgram
+	• User types name, clicks 'graph button' then shows graph of name popularity
+	• Names that aren't in the top 1000 most popular names do not display a graph
+	• Should be resizable, all part of the GraphicsProgram
+		○ So we need a window resize event listener
+	• New names display in a new color, with max of 4 colors until it recycles back to black
+
+
+Compontent and Containers:
+	• Component hierarchy:
+		○ Includes Program, Japplet, applet, Window
+	• Container
+		○ All of those in Component are a container
+		○ Component contains containers
+
+Containers extend components, for example
+acm Programs extend containers
+
+Swing interactors extend Jcomponents, which all are containers and likewise Components
+
+So components can listen to events.
+
+Components and containers:
+	• Can have listeners
+	• Can have their own components
+
+Now we will make our own programs, and add containers like a GraphicsProgram or ConsoleProgram. We'll just make:
+```
+public class My Program extends Program {
+	public void init() {
+		MyCanvas canvas = new MyCanvas();
+		//Top down approach, so we make MyCanvas later
+		add(canvas);
+	}
+	
+}
+```
+
+There will be a handout showing how to make the MyCanvas.
+	• It's going to extend Gcanvas, which is a container, and it will implement ComponentListener
+	• Note that for each method in the ComponentListener interface, we have to redefine the behavior of the method
+		○ Can make the method do nothing if we don't want it, we just need to define what happens in our new class when the method is called that exists in the interface
+
+Remember we want to have a toString() method for all classes that we make.
+
+Idea for searching: make a HashMap, such that:
+`names = new HashMap<String,Name>();`
+So we can have a HashMap of names, and the Name is the class we make to hold all data related to that specific name. The 'name' string can be called to reveal the object that has the same Name.name as the 'name'.
+
+See musicShop.java as example, since it stores 'albums' in a similar way we'll need to do for NameSurfer assignment.
+
+Integer.parseInt(String) returns an integer from a read string.
+
+

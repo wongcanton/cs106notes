@@ -1,0 +1,100 @@
+Lecture 17
+The topic of this lecture is the ArrayList, but first to finish up Arrays.
+
+Multidimensional Arrays:
+	• Matix = 2d array
+		○ So a 2 x 3 matrix: make an aray of arrays
+	• Matrix declaration:
+	```
+	type [][] matrixName = new type[size][size];
+	```
+	So for the following matrix, see the elements:
+	[0][0]	[0][1]	[0][2]
+	[1][0]	[1][1]	[1][2]
+	
+	So this is an array of arrays. It's possible to use the arrays by themselves:
+	`matrix[0] = [values, for this, array, of, the, matrix]`
+	
+	• For filling a matrix, you use a nested for loop.
+
+	• You can also make 3d matricies, just add another [] in the declaration
+		○ Be aware that this takes a decent amount of memory to declare when you make them large
+For the most part in this course, we'll use one dimensional arrays.
+
+Now for ArrayList.
+
+ArrayList is an object
+	• Part of java.util
+	• ArrayList is like an array, but it can dynamically extend and decrease in size
+		○ The 'effective size' and 'actual size' are essentially the same in practice
+	• An ArrayList is a 'template'
+		○ What is a template?
+		○ A template is a class that can be specialized by the type of data input in to the class
+		○ The method 'add' for ArrayList is listed as the following:
+		`boolean add(<T> element)`
+		Where <T> is the type of the data.
+	• In ArrayList, you declare it with `new ArrayList<type>();`
+		○ The ArrayList elements must all be of the type specified in the instance declaration
+		○ You cannot combine types in a single ArrayList!
+
+Methods of ArrayList:
+	• boolean add(<T> element)
+		○ Note that the return value is always True
+	• void add(int index, <T> element)
+		○ This adds the element at the passed index
+	• <T> remove(int index)
+		○ Drop the value and return it
+	• boolean remove(<T> element)
+		○ Returns true if the element exists in the ArrayList
+	• void clear()
+		○ Removes all element sin the ArrayList
+	• int size()
+		○ Returns the size of the ArrayList
+	• <T> get (int index)
+		○ Returns the value at the index
+	• <T> set (int index, <T> value)
+		○ Replaces the value at the index
+		○ Returns the old value at the index
+	• int indexOf(<T> value)
+		○ Returns the index of the value if it exists, returns -1 if false
+	• boolean contains(<T> value)
+		○ Returns true if value in ArrayList
+	• boolean isEmpty()
+		○ Returns true if no elements in the ArrayList
+
+So essentially the ArrayList is similar to the 'list' data type in Python.
+
+ArrayList considerations:
+	• ArrayLists hold OBJECTS
+		○ Thus, they cannot hold PRIMITIVE TYPES
+		○ If you want the ArrayList to hold a primitive type, you must add them inside a wrapper class
+
+ARRAYLIST CANNOT HOLD PRIMITIVE TYPES (but it can hold wrappers for them)
+But dealing with this is easier than you would think.
+	• No need to declare wrappers for every element before addition to the ArrayList like this:
+	```
+	int x = 5;
+	Integer y = new Integer(x);
+	list.add(y);
+	```
+	• The process of putting these primitive types in the wrapper classes is called 'boxing', and similarly the opposite is 'unboxing'
+	• So here's how its easier than you think:
+	```
+	ArrayList<Integer> list = new ArrayList<Integer>();
+	int x = 5;
+	list.add(x);
+	int z = list.get(x);
+	```
+	
+	Java 5.0 made the assumption that a programmer trying to add a primitive type will always use a wrapper, so now the API for the methods includes boxing and unboxing automatically.
+	
+	So note that evern though you add primitive types, they are actually added as the wrapped classes. Because of this, you cannot change the values since these wrapper classes are immutable.
+		○ So the set() method doesn't work with these wrapper classes
+	
+Fun fact:
+	• Gimage object is a 2d matrix
+		○ Each element in the matrix is an int that encodes an RGB value, and this element is a single pixel
+		○ Thus, you can change the values of the elements of the image by just changing the elements themselves
+			§ Therefore, changing an image to black and white can be done computationally!
+	• Pixels in Gimage have methods getRed, getGreen, and getBlue
+		○ These values can be normalized to black and white, and then encode these values to a single value again

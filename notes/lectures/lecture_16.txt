@@ -1,0 +1,130 @@
+Lecture 16
+
+Today the lecture is about Arrays.
+
+Arrays
+	• Ordered
+	• Homogeneous
+		○ Everything must be of the same type
+
+Declaring an array
+```
+type[] arrayName = new type[size];
+```
+	• Each element of the array has an index starting from zero
+	• All elements are initialized with a default value
+		○ For int, its 0
+
+Assignments
+```
+arrayName[index] = value;
+```
+
+You can make arrays of objects, as long as they are the same class.
+Ex:
+`Goval[] circles = new Goval[10];`
+	• From there you can construct the objects inside the array
+	• These do not initialize the object, the values are initialized to null
+
+So: arrays for primitive types initialize with some default value. Arrays of objects initialize with null (references). This is consistent with the values that are actually stored in memory: objects are just references in the stack.
+
+You can assign values to elements in an array with a for loop:
+```
+for (int I = 0; I < array.length; i++) {
+	array[i] = i;
+}
+```
+
+THE TRUTH ABOUT ++: ++ is a function that returns a value
+Here is an example:
+```
+int x = 5;
+int y = x++;
+println(x);
+println(y);
+```
+OUTPUT:
+6
+5 //WHAT???
+
+When you assign a variable to var++, the value of var++ is the RETURN value pre-increment. The declaration is two steps:
+	1. assign y to the value of x
+	2. Increment x by 1
+Contrastingly:
+```
+int y = ++x;
+println(y);
+```
+OUTPUT = 6
+This is pre-increment.
+The declaration is such:
+	1. Assign y to the increment of x
+	2. Do no further action to x
+
+So:
+var2 = var1++; //var2 = var1, var1 = var1 + 1
+var2 = ++var1; //var2 = var1 + 1, var1 = var1
+
+This is very important to know for arrays.
+
+
+Arrays: there is an 'actual size', and there's an 'effective size'.
+	• Actual size = number of elements declared
+	• Effective size = size of arrays actually used
+Since array lengths are static, people typically declare an array to be much larger than they actually need, then only use some number of elements that's less than the actual size.
+It's common to use a counter variable to keep track of how many were used, so you can do computations like averages of the elements that were actually used later.
+
+Iterating over an array with a while loop:
+```
+while (true) {
+	if (condition) break;
+	println(array[i])
+	array[i++];
+}
+```
+
+Note that the last element of an array is always array.length - 1. This is because the array indexing starts at 0 not 1.
+
+Can you pass arrays into methods as parameters? Yes
+```
+someMethod(arrayName);
+
+private void someMethod(int[] a) {
+	for (int I = 0; a.length; i++) {
+		stuff;
+	}
+}
+```
+The array is passed by reference, so note that this is true even for arrays of primitive types.
+	• This is done for efficiency, no need to pass the entire array structure, just a reference to it
+	• This does mean that you can modify elements in an array that are primative types, so you can technically pass a single primative type by reference with an array
+		○ But don't do this, it's horrible practice
+So: passing elements = pass by value, passing arrays = pass by reference
+
+NOTE THAT FOR ARRAYS, THE LENGTH IS array.length SO IT IS A PROPERTY NOT A METHOD.
+STRINGS THE LENGTH IS A METHOD myString.length()
+
+
+You can actually initialize arrays with values:
+```
+int[] arr = {1, 2, 3, 4, 5};
+```
+But this isn't common.
+
+Important for part 3 of hangman:
+ArrayList is a dynamic size array.
+Need to import java.util.*;
+An ArrayList is a 'template'. 
+Declaration:
+```
+ArrayList<typeForArrayList> name = new ArrayList<typeForArrayList>();
+```
+
+ArrayLists have some cool methods:
+	• ArrayList.add(line);
+		○ Adds the ArrayList with element 'line'
+		○ This appends to the end and increases the length by 1
+	• ArrayList.size()
+		○ Returns the length
+	• ArrayList.get(index);
+		○ Returns the value at index

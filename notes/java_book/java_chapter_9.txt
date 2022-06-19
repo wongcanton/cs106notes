@@ -1,0 +1,152 @@
+Java Chapter 9
+
+Chapter 9: Strings and Characters
+
+9.1 The principle of enumeration
+	• The process of listing all elements in a domain is called 'enumeration'
+		○ The parts of the list are of the type 'enumerated type'
+		○ Characters are the enumerated type of the String in a way
+Representing enumerated types inside the machine
+	• Computers are great as numbers, so it is helpful to have items in lists represented as numbes
+		○ The process of asigning an integer to each element of the enumerated type is called 'integer encoding'
+		○ The integer is a representation of the original value
+Representing enumerated types as integers
+	• You typically in Java <5.0 use integers as enumerated types
+	• Say for example the marital status in a tax form, you could do this:
+	`public static final int SINGLE = 1;`
+	`public static final int MARRIED_FILING_JOINT_RETURN = 2;`
+	• Java >5.0 can allow declaration of enumeration types other than int, but that is beyond the scope of this book (at the time it is written)
+
+9.2 Characters
+	• Characters are a build in enumerated type
+		○ Characters are of the 'scalar type', which is non integer
+		○ You can use scalar types in any place where an integer would be used
+The data type char
+	• char data type is for characters
+		○ Because they are scalar type, operations on integers are valid operations on chars
+The ASCII and Unicode coding systems
+	• Codes used to represent characters are 'character codes'
+		○ You can encode '1' as 'A', but that would be bad since we still need '1' to represent one in the language
+		○ There was a need to make a coding system that was uniform for all computing machines and did not interfere with numbers
+	• ASCII is the American Standard Code for Information Exchange, and it standardized character codes
+	• An expansion of ASCII was done which became the Unicode system
+		○ Java was one of the first adopters of Unicode
+	• ASCII only assumed 256 characters, while Unicode has the space for 65,536 characters
+		○ Unicode includes the 128 first characters of ASCII
+	• \ = backslash
+	• / = forward slash
+	• ASCII and Unicode aren't encoded with base 10 encoding, they are represented with octal (base 8) and hexadecimal (base 16) encoding
+		○ octal has only digits 0-7
+		○ To represent large numbers in this system, you have to add them together and note that the digit on the left is worth 8 times more than the right (so 11 is equal to 9)
+Character Constants
+	• Declare characters with 'character constants', which is declaring them like this:
+	`char a = 'A';`
+	This is opposed to assigning the character code 65 to the char variable, which would work, but using the character in quotes is easier to read
+	Character codes are important to know of, but not use on the regular.
+Important properties of the Unicode representation
+	1. Codes for 0-9 are consecutive
+		a. So '1' is the next character after '0'
+	2. There are two ranges for letters, first the capitols A-Z then a-z
+		a. You can count through the letters in order this way
+Special characters
+	• Normal viewable characters are called 'printing characters'
+	• 'Special characters' perform actions, and have a \ in at the start to note they are special. The combination of the \ and the character makes the 'escape sequence'
+		○ \b
+			§ Backspace
+		○ \f
+			§ New page (formfeed)
+		○ \n
+			§ Newline
+		○ \r
+			§ Return (to newline)
+		○ \t
+			§ Tab
+		○ \0
+			§ Null character
+		○ \\
+			§ \
+		○ \"
+			§ Escaped "
+Character arithmetic
+	• Characters can be iterated by their code
+		○ You don't need to convert the character to int then back to char
+	• For character representations of integers you do need to type cast them back to integers if you want to deal with them as integers
+	• You can do math on characters, it just works with the character codes
+		○ 'a' + 5
+			§ This moves 5 character codes after a
+		○ 'a' - 5
+			§ This moves 5 character codes before a
+		○ 'c' - 'a'
+			§ This moves 'a' codes before c
+		○ 'a' + 'c'
+			§ This moves c codes after a
+		○ c1 < c2
+			§ True since c1 comes before c2 in the character code
+Useful methods in the character class
+	• Java made a lot of methods for the Character class part of the java.lang package, so they don't need to be imported. For example
+		○ isLetter(char ch)
+		○ isDigit(char ch)
+		○ isLowerCase(char ch)
+		○ And more
+	• Reasons to use the Character class methods rather then write your own, and just to use already written methods than your own in general:
+	1. Programmers will already know how the methods work if they are standard methods.
+	2. It is easier to rely on library methods to be correct than your own, since implementors have pressure to keep them correct.
+	3. Your own methods may not be language agnostic. The Character class ones support most if not all human languages (Thai, Arabic, Urdu…).
+	4. Library packaged methods are typically more efficient than your own written ones.
+Control statements involving characters
+	• You can use characters in switches, and you can iterate over them:
+	```
+	for (char ch = 'A'; ch <= 'Z'; ch++) {
+		statement;
+	}
+	```
+
+9.3 Strings as an abstract idea
+	• Strings in Java are included in the java.lang.String package
+	• The String class lets you work with strings without having to think about their representation in memory for the most part
+The notion of an abstract type
+	• Strings are abstract in that we can work with them in terms of understanding their behavior alone, without knowing the underlying representation
+	• Legal operations for an abstract type are called the 'primitive operations'
+		○ These are public methods
+		○ To use the class, the client must use the public methods to work with them, not typical operators
+	• For strings, we use methods to deal with them
+
+9.4 Using the methods in the String class
+It's important to remember that Strings are objects, so primitive operators that we do with characters and integers do not apply. However, there are plenty of public methods that can do these operations. Just don't try to do regular arithmetic; it won't work (except with concatenation).
+Note that many methods return a value, so sending a message to the object unless it's a setter won't change the object; you must reassign the object as the return value of the message if you want to reassign.
+	• For example, String.toLowerCase() must be in the form of
+	`str = str.toLowerCase()`
+	if you want your str in lowercase. The statement on the right of the = alone won't reassign.
+	• Getting length of a String
+		`int length = str.length()`
+	This is how many characters are in the string.
+	• You can select characters from a string because each character has an 'index', or integer position in the string
+	`String str = 'hello world';`
+	`str.charAt(0);` -> 'h'
+	• Concatenating strings can be done with the + operator actually, or saying
+	`str.concat('string to concat');`
+		○ This adds the argument to the end of the String
+	`str += 'string to concat';`
+		○ This is the same
+		○ You can do multiple .concat() messages or + operators
+	`str.concat('this').concat('adds');`
+	`str + 'this' + 'adds';`
+	• Also, since strings are indexed, you can extract substrings given a start and end position
+	```
+	String str = 'hello world';
+	str.substring(1, 4);
+	```
+	 -> 'ell'
+	• Rememeber that since strings are object, you cannot compare them with ==, you must call str.equals(str);
+	• You can also compare strings, and note that the return value is dependent on the lexicographic order, or Unicode order, of the characters
+	`str.compareTo(str2);`
+		○ Returns negative if str precedes str2 in unicode
+			§ Will be positive if str2 comes first
+			§ Will be 0 if the strings are exactly the same
+		○ Note that if two strings have the same beginning characters, the comparison only begins once they differ
+		`"abc".compareTo("abcgefg");` -> will be positive
+	• Also because of indexing, you can search for substrings inside strings! This method returns the index of the beginning of the substring within the main string
+	`int pos = str.indexOf("lmao");`
+		○ You can specify a second argument of an index to start looking at
+	• Java can also make acronyms
+	`acronym("self contained underwater breathing apparatus");` -> 'scuba'

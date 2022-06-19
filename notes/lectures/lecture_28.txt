@@ -1,0 +1,69 @@
+Lecture 28
+
+Results of a Graphics Contest is discussed.
+Final is open book.
+
+Final Review:
+
+On the final:
+	• Chapters 2-13 (not Karel, no history)
+
+Not on the final:
+	• History
+	• Karel
+	• Stack/Heap diagrams
+	• Bit operations
+	• Polar coordinates
+	• Layouts
+	• Sorting
+	• Threads
+	• Standard Java
+
+To emphasize:
+	• Build a program
+		○ Declare a class and be able to run it
+	• Objects, classes, interfaces
+		○ What does it mean to implement an interface
+		○ Be able to define a class and make constructors
+		○ Method calls
+			§ Pass by reference vs pass by value
+		○ Primitives vs objects
+	• Strings and characters
+		○ String operations
+			§ Write out for reference during final
+		○ Using individual characters
+	• Graphics
+		○ acm graphics
+	• Event-driven programs
+		○ Mouse listeners
+		○ Action listeners
+	• Arrays and ArrayLists
+		○ Differences
+		○ When to use each
+		○ Multidimensional arrays
+	• Collections
+		○ HashMap
+			§ Key/Value
+		○ Iterator
+	• Files
+		○ Read from file
+
+There is a practice final.
+
+Some additional practice questions:
+
+For:
+	HashMap<String, String>
+	Find matching key/value pairs
+
+public void MatchKeys(HashMap<String,String> map) {
+	Iterator<String> it = map.keyset().iterator();
+	while (it.hasNext()) {
+		String key = it.next();
+		String value = map.get(key);
+		if (value.equals(key)) {
+			println(key);
+		}
+	}
+
+}

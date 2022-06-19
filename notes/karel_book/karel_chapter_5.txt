@@ -1,0 +1,69 @@
+Karel Chapter 5
+
+Karel Chapter 5: Algorithms
+
+The top-down design approach is great, and it's not helpful if you don't have a foundation of problem solving strategies. In programming, the process of solution design strategy is called 'algorithmic design'.
+
+Algorithms are strategies that:
+	• Are expressed in a form that is clear and unambiguous
+	• Steps in the strategy can be carried out
+	• Strategy always terminates after a finite number of steps
+
+Take the case of solving a maze with Karel: it can be solved in many different ways.
+One algorithm to solve it with is the 'right hand rule', where the strategy is to go right unless blocked (always take the rightmost available path).
+
+Here's an implementation of this algorithm:
+```
+public class MazeRunningKarel extends SuperKarel {
+	public void run() {
+		while (noBeepersPresent()) {
+			turnRight();
+			while (frontIsBlocked()) {
+				turnLeft();
+			}
+			move();
+		}
+	}
+}
+```
+
+This looks simple, but it tends to get the job done. Coming up with the most effective algorithm typically doesn't need a lot of complex code.
+
+Take another example of doubling the number of beepers in a stack:
+	• The algorithm should work for any number of beepers
+	• One solution is to move one beeper at a time and put a second one per each beeper
+```
+private void doubleIntoStorehouse() {
+	while (beepersPresent()) {
+		pickBeeper();
+		move();
+		putBeeper();
+		putBeeper();
+		turnAround();
+		move();
+		turnAround();
+	}
+}
+```
+The precondition in this cae is that Karel is standing on a corner containing a pile of N beepers facing a corner with no beepers.
+The postcondition is that Karel ends up the original position with no beepers in that corner but 2N beepers are on the corner that Karel is facing.
+
+This works, but it doesn't put the beepers back in the same spot they originally were.
+You could have another method to put the whole stack back, but there must be another way.
+
+A much less obvious but efficient solution is the implementation of 'recursion' to solve the problem. The recursion algorithm is a sophisticated progamming technique, but it gets the job done efficiently:
+```
+private void doubleBeepers() {
+	if (beepersPresent()) {
+		pickBeeper();
+		doubleBeepers();
+		putBeeper();
+		putBeeper();
+	}
+}
+```
+
+This prevents the need of a temporary store beeper stack, since each beeper picked up results in two beepers being placed in the same spot.
+This technique doesn't need to be fully understood at this point in the course, but it's shown to demonstrate that there are many different algorithms that can solve problems.
+
+Learning more algorithmic techniques gives you more skills to solve problems in your programs.

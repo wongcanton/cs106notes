@@ -1,0 +1,88 @@
+Lecture 26
+
+Topic of today: Using the Java Standard Library.
+
+So far, we've been using a library from the ACM.
+
+Now we learn Standard Java.
+
+Standard Java:
+	• The 'run class' in the Stanford Eclipse always knew to run the main class since it had a 'run' method in it, for the acm programs
+		○ These always made a 'main' method
+	• Standard Java needs a 'main' method to run
+		○ The header for this is weird:
+```
+public static void main(String[] args){
+	//main;
+}
+```
+What the main method declaration means:
+	• Public method
+	• static since the method belongs to the instance, not an object
+	• void since it returns none
+	• The array of strings passed into the method is so the program can be given more arguments when executed in a command line
+		○ So this allows for arguments in a command line
+		○ This is to mimic C and C++
+main() is the run() equivalent in the acm library.
+
+How the acm run() worked:
+	• There was a main() method in the acm library that would do the following:
+		○ `new NameSurfer().start(args);`
+		○ This would get put into a runnable interface
+
+We used run() since the beginning to make it easier to learn at first.
+
+Now how to we convert our programs to main and share with others to run? We make a JAR.
+JAR = Java Archive
+	• Contains compiled classes
+		○ Can contain source code, but normally just has compiled classes
+	• A JAR is essentially an executable file! So a user can run it!
+
+How to make a JAR:
+	• Make a main method in the class
+	So in our classes:
+	```
+	public class NameSurfer extends Program {
+	
+		public static void main(String[] args) {
+			new NameSurfer().start(args);
+		}
+	}
+	```
+	• File -> Export -> Java -> jar file
+		○ Select the default package (not the .project and so on)
+		○ Select all the .java files
+		○ Export generated class files and resources
+		○ Define where you want the jar saved
+		○ Do generate a Manifest file
+			§ Just 3 lines long, needed for run information. 2 by default
+			```
+			Manifest-Version: 1.0
+			Main-Class: NameSurfer
+			# We add the next line, on what to use
+			Class-Path: acm.jar NameSurfer.jar
+			```
+			§ The Class-Path defines which jar files you need, which MUST INCLUDE the dependencies
+			§ First generation has the 2 lines, we need to add the third line, and remake the jar with this already made manifest file
+		○ Pick a Main class (the entry point)
+NOTES ON THIS ARE IN A HANDOUT.
+
+When you send the program:
+	• You need the program's jar, all jar dependencies, and data files (as needed, like data.csv).
+	• So the jar you make doesn't include all jars in it, you need to include them all
+	• Make sure the user has a JRE installed
+
+Applet:
+	• An applet is a java application that is embedded in a browser
+	• The code is run with an applet tag:
+	```
+	<applet archive = "NameSurfer.jar"
+		code="NameSurfer.class"
+		width=700 height=500></applet>
+	```
+	
+Standard Java, again:
+	• println can be called with System.out.println() which prints to a system console
+
+Now we have the tools to understand the standard and hopefully any other Java libraries.
+
